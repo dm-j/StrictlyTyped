@@ -131,10 +131,6 @@ FirstName firstName = "Michael";
 ``` csharp
 FirstName firstName = (FirstName)"Michael";
 ```
-* `As` Extension
-``` csharp
-FirstName firstName = "Michael".As<FirstName>();
-```
 * `Create` static method
 ``` csharp
 FirstName firstName = FirstName.Create("Michael");
@@ -148,6 +144,15 @@ FirstName firstName = new ("Michael");
 ``` csharp
 FirstName firstName = FirstName.From("Michael");
 ```
+* `As` Extension
+``` csharp
+FirstName firstName = "Michael".As<FirstName>();
+```
+* `AsNullable` Extension (allows nulls, if the value passed in is null)
+``` csharp
+FirstName? firstName = "Michael".AsNullable<FirstName>();
+FirstName? noFirstName = null.AsNullable<FirstName>();
+```
 **Preprocessing and Validation**
 * `TryAs` Extension (without validation result `out` parameter)
 ``` csharp
@@ -156,6 +161,10 @@ if ("Michael".TryAs(out FirstName result)) { /* ... */ }
 * `TryAs` Extension (with validation result `out` parameter)
 ``` csharp
 if ("Michael".TryAs(out FirstName result, out IReadOnlySet<string> failures)) { /* ... */ }
+```
+* `TryAsNullable` Extension (allows nulls if the value passed in is null with validation result `out` parameter)
+``` csharp
+if ("Michael".TryAsNullable(out FirstName? result, out IReadOnlySet<string> failures)) { /* ... */ }
 ```
 * `TryFrom` static method (without validation result `out` parameter)
 ``` csharp
