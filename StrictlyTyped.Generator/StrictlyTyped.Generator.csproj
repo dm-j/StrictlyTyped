@@ -1,0 +1,104 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+        <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+        <IsRoslynComponent>true</IsRoslynComponent>
+        <LangVersion>latest</LangVersion>
+        <PackageId>StrictlyTyped.Generator</PackageId>
+        <Description>A source generator for creating strictly typed versions of simple types</Description>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Title>Strict Type Generator</Title>
+        <Authors>David Markham-Jones</Authors>
+        <Copyright>2023 David Markham-Jones</Copyright>
+        <PackageTags>source generator, incremental source generator, types, strict type, id, ddd, value</PackageTags>
+        <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <EnforceExtentedAnalyzerRules>True</EnforceExtentedAnalyzerRules>
+        <PackageProjectUrl>https://github.com/dm-j/StrictlyTyped</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/dm-j/StrictlyTyped</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <IncludeSymbols>True</IncludeSymbols>
+        <VersionPrefix>$([System.DateTime]::Now.ToString("1.yy.1MMdd"))$([System.DateTime]::Now.ToString(".1HHmm"))</VersionPrefix>
+        <VersionSuffix>beta</VersionSuffix>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DefineConstants>$(DefineConstants);USE_SYSTEM_TEXT_JSON;USE_NEWTONSOFT_JSON</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Resources\StrictBoolTemplate.cs" />
+      <Compile Remove="Resources\StrictByteTemplate.cs" />
+      <Compile Remove="Resources\StrictDecimalTemplate.cs" />
+      <Compile Remove="Resources\StrictDoubleTemplate.cs" />
+      <Compile Remove="Resources\StrictFloatTemplate.cs" />
+      <Compile Remove="Resources\StrictGuidTemplate.cs" />
+      <Compile Remove="Resources\StrictHalfTemplate.cs" />
+      <Compile Remove="Resources\StrictIntTemplate.cs" />
+      <Compile Remove="Resources\StrictLongTemplate.cs" />
+      <Compile Remove="Resources\StrictSByteTemplate.cs" />
+      <Compile Remove="Resources\StrictShortTemplate.cs" />
+      <Compile Remove="Resources\StrictStringTemplate.cs" />
+      <Compile Remove="Resources\StrictUIntTemplate.cs" />
+      <Compile Remove="Resources\StrictULongTemplate.cs" />
+      <Compile Remove="Resources\StrictUShortTemplate.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="Resources\StrictBoolTemplate.cs" />
+        <None Include="Resources\StrictByteTemplate.cs" />
+        <None Include="Resources\StrictDecimalTemplate.cs" />
+        <None Include="Resources\StrictDoubleTemplate.cs" />
+        <None Include="Resources\StrictFloatTemplate.cs" />
+        <None Include="Resources\StrictGuidTemplate.cs" />
+        <None Include="Resources\StrictHalfTemplate.cs" />
+        <None Include="Resources\StrictIntTemplate.cs" />
+        <None Include="Resources\StrictLongTemplate.cs" />
+        <None Include="Resources\StrictSByteTemplate.cs" />
+        <None Include="Resources\StrictShortTemplate.cs" />
+        <None Include="Resources\StrictStringTemplate.cs" />
+        <None Include="Resources\StrictUIntTemplate.cs" />
+        <None Include="Resources\StrictULongTemplate.cs" />
+        <None Include="Resources\StrictUShortTemplate.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Properties\Resources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Resources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Properties\Resources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="LICENSE.txt">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Update="README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
+</Project>

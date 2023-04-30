@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<LangVersion>latest</LangVersion>
+	<PackageId>StrictlyTyped.Swagger</PackageId>
+	<Description>Swagger support for Strict Types</Description>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>Strict Type Swagger</Title>
+	<Authors>David Markham-Jones</Authors>
+	<Copyright>2023 David Markham-Jones</Copyright>
+	<PackageTags>types, strict type, id, ddd, value, swagger, api</PackageTags>
+	<PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	<EnforceExtentedAnalyzerRules>True</EnforceExtentedAnalyzerRules>
+	<PackageProjectUrl>https://github.com/dm-j/StrictlyTyped</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/dm-j/StrictlyTyped</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<IncludeSymbols>True</IncludeSymbols>
+	<VersionPrefix>$([System.DateTime]::Now.ToString("1.yy.1MMdd"))$([System.DateTime]::Now.ToString(".1HHmm"))</VersionPrefix>
+	<VersionSuffix>beta</VersionSuffix>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StrictlyTyped.Common\StrictlyTyped.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="LICENSE.txt">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Update="README.md">
+      <PackagePath>\</PackagePath>
+      <Pack>True</Pack>
+    </None>
+  </ItemGroup>
+</Project>
