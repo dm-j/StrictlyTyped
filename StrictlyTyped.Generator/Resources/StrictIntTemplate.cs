@@ -442,7 +442,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictInt<ZYX
             _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.Int32));
         }
 
-        private readonly Type[] _knownTypes = new[]
+        private readonly global::System.Type[] _knownTypes = new[]
         {
             typeof(ZYX),
             typeof(global::System.String),

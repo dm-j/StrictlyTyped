@@ -420,7 +420,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictULong<Z
             _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.UInt64));
         }
 
-        private readonly Type[] _knownTypes = new[]
+        private readonly global::System.Type[] _knownTypes = new[]
         {
             typeof(ZYX),
             typeof(global::System.String),
