@@ -21,6 +21,12 @@ namespace StrictlyTyped.Swagger
             {
                 var map = _map(options, type.type);
 
+                if (type.@interface.Any(i => i.StartsWith("DateOnly")))
+                {
+                    map(new OpenApiSchema { Type = "string", Default = new OpenApiDate(DateTime.MinValue) });
+                    continue;
+                }
+
                 if (type.@interface.Any(i => i.StartsWith("String")))
                 {
                     map(new OpenApiSchema { Type = "string", Default = new OpenApiString(string.Empty) });
@@ -29,7 +35,7 @@ namespace StrictlyTyped.Swagger
 
                 if (type.@interface.Any(i => i.StartsWith("Guid")))
                 {
-                    map(new OpenApiSchema { Type = "string", Format = "uuid", Default = new OpenApiString("00000000-0000-0000-0000-000000000000") });
+                    map(new OpenApiSchema { Type = "string", Format = "uuid", Default = new OpenApiString(Guid.Empty.ToString()) });
                     continue;
                 }
 

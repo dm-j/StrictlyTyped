@@ -6,7 +6,7 @@
 /// type safety and minimal allocations. It implements the <see cref="global::StrictlyTyped.IStrictDateOnly{T}"/> interface
 /// for Strict typing and can be used with the <see cref="global::StrictlyTyped"/> library.
 /// </remarks>
-[global::System.Diagnostics.DebuggerDisplay("{Value}")]
+[global::System.Diagnostics.DebuggerDisplay("{Value.Year}/{Value.Month}/{Value.Day}")]
 [global::System.ComponentModel.TypeConverter(typeof(Converter))]
 [global::System.Text.Json.Serialization.JsonConverter(typeof(SystemJsonConverter))]
 #if (USE_NEWTONSOFT_JSON)
@@ -65,6 +65,54 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictDateOnl
     /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
     public static implicit operator ZYX?(global::System.DateOnly? value) =>
+        value.HasValue ? new(value.Value) : null;
+
+    /// <summary>
+    /// Converts an <see cref="global::System.DateTime"/> value to a <see cref="ZYX"/> value.
+    /// </summary>
+    /// <param name="value">The <see cref="global::System.DateTime"/> value to convert.</param>
+    /// <returns>A new <see cref="ZYX"/> value that represents the converted <see cref="global::System.DateTime"/> value.</returns>
+    /// <remarks>
+    /// No validation or preprocessing is performed.
+    /// </remarks>
+    [global::System.Diagnostics.Contracts.Pure]
+    public static implicit operator ZYX(global::System.DateTime value) =>
+        new(value);
+
+    /// <summary>
+    /// Converts an <see cref="ZYX"/> value to a <see cref="global::System.DateTime"/> value.
+    /// </summary>
+    /// <param name="value">The <see cref="ZYX"/> value to convert.</param>
+    /// <returns>A new <see cref="global::System.DateTime"/> value that represents the converted <see cref="ZYX"/> value.</returns>
+    /// <remarks>
+    /// No validation or preprocessing is performed.
+    /// </remarks>
+    [global::System.Diagnostics.Contracts.Pure]
+    public static implicit operator global::System.DateTime(ZYX value) =>
+        value.ToDateTime();
+
+    /// <summary>
+    /// Converts a <see cref="global::System.DateTime"/> value to a <see cref="ZYX"/> value.
+    /// </summary>
+    /// <param name="value">The <see cref="global::System.DateTime"/> value to convert.</param>
+    /// <returns>A new <see cref="ZYX"/> value that represents the converted <see cref="global::System.DateTime"/> value.</returns>
+    /// <remarks>
+    /// No validation or preprocessing is performed.
+    /// </remarks>
+    [global::System.Diagnostics.Contracts.Pure]
+    public static implicit operator global::System.DateTime?(ZYX? value) =>
+        value.HasValue ? value.Value.Value.ToDateTime(global::System.TimeOnly.MinValue) : null;
+
+    /// <summary>
+    /// Converts a <see cref="global::System.DateTime?"/> value to a <see cref="ZYX?"/> value.
+    /// </summary>
+    /// <param name="value">The <see cref="global::System.DateTime"/> value to convert.</param>
+    /// <returns>A new <see cref="ZYX?"/> value that represents the converted <see cref="global::System.DateTime"/> value.</returns>
+    /// <remarks>
+    /// No validation or preprocessing is performed.
+    /// </remarks>
+    [global::System.Diagnostics.Contracts.Pure]
+    public static implicit operator ZYX?(global::System.DateTime? value) =>
         value.HasValue ? new(value.Value) : null;
 
     [global::System.Diagnostics.Contracts.Pure]

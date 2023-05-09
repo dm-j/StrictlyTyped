@@ -17,7 +17,12 @@
         static abstract implicit operator DateOnly?(TSelf? value);
         static abstract implicit operator TSelf(DateOnly value);
         static abstract implicit operator DateOnly(TSelf value);
-        
+
+        static abstract implicit operator TSelf?(DateTime? value);
+        static abstract implicit operator DateTime?(TSelf? value);
+        static abstract implicit operator TSelf(DateTime value);
+        static abstract implicit operator DateTime(TSelf value);
+
         static abstract TSelf From(DateTime dt);
 
         DateTime ToDateTime(TimeOnly? time = null);

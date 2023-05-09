@@ -12,12 +12,15 @@ namespace Example.Dtos
 
         public IsComplete IsComplete { get; set; }
 
+        public Date? Date { get; set; }
+
         public static TodoItemDto From(TodoItem todo) =>
             new()
             {
                 Id = todo.Id,
                 Name = todo.Name,
-                IsComplete = todo.IsComplete
+                IsComplete = todo.IsComplete,
+                Date = todo.Date,
             };
 
         public TodoItem AsValue() =>
@@ -25,7 +28,8 @@ namespace Example.Dtos
             {
                 Id = this.Id,
                 Name = this.Name,
-                IsComplete = this.IsComplete
+                IsComplete = this.IsComplete,
+                Date = this.Date,
             };
     }
 }
