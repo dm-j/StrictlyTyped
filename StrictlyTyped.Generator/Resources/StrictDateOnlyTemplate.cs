@@ -6,7 +6,7 @@
 /// type safety and minimal allocations. It implements the <see cref="global::StrictlyTyped.IStrictDateOnly{T}"/> interface
 /// for Strict typing and can be used with the <see cref="global::StrictlyTyped"/> library.
 /// </remarks>
-[global::System.Diagnostics.DebuggerDisplay("{Value}")]
+[global::System.Diagnostics.DebuggerDisplay("{Value.Year}/{Value.Month}/{Value.Day}")]
 [global::System.ComponentModel.TypeConverter(typeof(Converter))]
 [global::System.Text.Json.Serialization.JsonConverter(typeof(SystemJsonConverter))]
 #if (USE_NEWTONSOFT_JSON)
@@ -78,6 +78,18 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictDateOnl
     [global::System.Diagnostics.Contracts.Pure]
     public static implicit operator ZYX(global::System.DateTime value) =>
         new(value);
+
+    /// <summary>
+    /// Converts an <see cref="ZYX"/> value to a <see cref="global::System.DateTime"/> value.
+    /// </summary>
+    /// <param name="value">The <see cref="ZYX"/> value to convert.</param>
+    /// <returns>A new <see cref="global::System.DateTime"/> value that represents the converted <see cref="ZYX"/> value.</returns>
+    /// <remarks>
+    /// No validation or preprocessing is performed.
+    /// </remarks>
+    [global::System.Diagnostics.Contracts.Pure]
+    public static implicit operator global::System.DateTime(ZYX value) =>
+        value.ToDateTime();
 
     /// <summary>
     /// Converts a <see cref="global::System.DateTime"/> value to a <see cref="ZYX"/> value.

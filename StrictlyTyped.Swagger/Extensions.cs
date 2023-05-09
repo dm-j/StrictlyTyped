@@ -35,7 +35,7 @@ namespace StrictlyTyped.Swagger
 
                 if (type.@interface.Any(i => i.StartsWith("Guid")))
                 {
-                    map(new OpenApiSchema { Type = "string", Format = "uuid", Default = new OpenApiString("00000000-0000-0000-0000-000000000000") });
+                    map(new OpenApiSchema { Type = "string", Format = "uuid", Default = new OpenApiString(Guid.Empty.ToString()) });
                     continue;
                 }
 

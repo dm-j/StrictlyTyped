@@ -15,5 +15,8 @@ namespace Example
 
         [StrictString]
         public partial record struct Secret;
+
+        [StrictDateOnly]
+        public partial record struct Date;
     }
 }
