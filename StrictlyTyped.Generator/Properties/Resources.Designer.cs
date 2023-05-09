@@ -105,15 +105,14 @@ namespace StrictlyTyped.Generator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a strictly-typed record struct for a boolean value
+        ////// Represents a strictly-typed record struct for a &lt;see cref=&quot;global::System.Boolean&quot;/&gt; value
         ////// &lt;/summary&gt;
         ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictBool{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// This struct is immutable and can be used for performance-sensitive scenarios that require type
+        ////// safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictBool{T}&quot;/&gt;
+        ////// interface for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[global::System.C [rest of string was truncated]&quot;;.
+        ///[global::System.Diagnostics.DebuggerDisplay(&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string StrictBoolTemplate {
             get {
@@ -141,12 +140,30 @@ namespace StrictlyTyped.Generator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to /// &lt;summary&gt;
+        ////// Represents a Strictly-typed record struct for a DateOnly value
+        ////// &lt;/summary&gt;
+        ////// &lt;remarks&gt;
+        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
+        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDateOnly{T}&quot;/&gt; interface
+        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// &lt;/remarks&gt;
+        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
+        ///[global::Sys [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string StrictDateOnlyTemplate {
+            get {
+                return ResourceManager.GetString("StrictDateOnlyTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /// &lt;summary&gt;
         ////// Represents a Strictly-typed struct for a decimal floating-point value
         ////// &lt;/summary&gt;
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDecimal{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
         ///[globa [rest of string was truncated]&quot;;.
@@ -164,7 +181,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDouble{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Va [rest of string was truncated]&quot;;.
         /// </summary>
@@ -181,7 +198,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictFloat{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Val [rest of string was truncated]&quot;;.
         /// </summary>
@@ -198,7 +215,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictGuid{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
         ///[global::System.ComponentM [rest of string was truncated]&quot;;.
@@ -216,7 +233,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictHalf{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{ [rest of string was truncated]&quot;;.
         /// </summary>
@@ -233,7 +250,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictInt{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
         ///[glob [rest of string was truncated]&quot;;.
@@ -251,7 +268,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictLong{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
         ///[gl [rest of string was truncated]&quot;;.
@@ -269,7 +286,7 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictSByte{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
+        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
         ///[global::Sys [rest of string was truncated]&quot;;.
@@ -304,11 +321,11 @@ namespace StrictlyTyped.Generator.Properties {
         ////// &lt;/summary&gt;
         ////// &lt;remarks&gt;
         ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictUString{T}&quot;/&gt; interface
+        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictString{T}&quot;/&gt; interface
         ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
         ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[global::System [rest of string was truncated]&quot;;.
+        ///[global::System. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string StrictStringTemplate {
             get {

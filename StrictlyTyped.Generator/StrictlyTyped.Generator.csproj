@@ -33,6 +33,7 @@
     <ItemGroup>
       <Compile Remove="Resources\StrictBoolTemplate.cs" />
       <Compile Remove="Resources\StrictByteTemplate.cs" />
+      <Compile Remove="Resources\StrictDateOnlyTemplate.cs" />
       <Compile Remove="Resources\StrictDecimalTemplate.cs" />
       <Compile Remove="Resources\StrictDoubleTemplate.cs" />
       <Compile Remove="Resources\StrictFloatTemplate.cs" />
@@ -57,6 +58,7 @@
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="Resources\StrictBoolTemplate.cs" />
         <None Include="Resources\StrictByteTemplate.cs" />
+        <None Include="Resources\StrictDateOnlyTemplate.cs" />
         <None Include="Resources\StrictDecimalTemplate.cs" />
         <None Include="Resources\StrictDoubleTemplate.cs" />
         <None Include="Resources\StrictFloatTemplate.cs" />

@@ -93,6 +93,7 @@ public class StrictTypeGenerator : IIncrementalGenerator
     private static readonly Lazy<string[]> _uIntTemplate = new(() => Resources.StrictUIntTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _uLongTemplate = new(() => Resources.StrictULongTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _uShortTemplate = new(() => Resources.StrictUShortTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
+    private static readonly Lazy<string[]> _dateOnlyTemplate = new(() => Resources.StrictDateOnlyTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
 
     private static IEnumerable<(string fileName, string content)> _generateRecords(Compilation compilation, IEnumerable<(RecordDeclarationSyntax record, string type)> distinctRecords, CancellationToken cancellationToken)
     {
@@ -114,6 +115,7 @@ public class StrictTypeGenerator : IIncrementalGenerator
             string[] template = recordDeclarationSyntax[i].type switch
             {
                 "Byte" => _byteTemplate.Value,
+                "DateOnly" => _dateOnlyTemplate.Value,
                 "Decimal" => _decimalTemplate.Value,
                 "Double" => _doubleTemplate.Value,
                 "Float" => _floatTemplate.Value,
