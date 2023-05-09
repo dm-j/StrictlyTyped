@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.ComponentModel;
 
 namespace StrictlyTyped.EntityFramework
 {
-    //public class StrictTypeConverter<TSelf, TBase> : ValueConverter<TSelf, TBase> where TSelf : struct, IStrictType<TSelf, TBase>
-    //{
-    //    public StrictTypeConverter()
-    //        : base(v => v.Value, v => _convertTo(v))
-    //    { }
-
-    //    private static TSelf _convertTo(TBase value) =>
-    //        (TSelf)value;
-    //}
+    public class DateOnlyConverter<TStrictDateOnly> : ValueConverter<TStrictDateOnly, DateTime>
+        where TStrictDateOnly : struct, IStrictDateOnly<TStrictDateOnly>
+    {
+        /// <summary>
+        /// Creates a new instance of this converter.
+        /// </summary>
+        public DateOnlyConverter() : base(
+                d => d.ToDateTime(TimeOnly.MinValue),
+                d => (TStrictDateOnly)TypeDescriptor.GetConverter(typeof(TStrictDateOnly)).ConvertTo(d, typeof(TStrictDateOnly))!)
+        { }
+    }
 }

@@ -21,6 +21,12 @@ namespace StrictlyTyped.Swagger
             {
                 var map = _map(options, type.type);
 
+                if (type.@interface.Any(i => i.StartsWith("DateOnly")))
+                {
+                    map(new OpenApiSchema { Type = "string", Default = new OpenApiDate(DateTime.MinValue) });
+                    continue;
+                }
+
                 if (type.@interface.Any(i => i.StartsWith("String")))
                 {
                     map(new OpenApiSchema { Type = "string", Default = new OpenApiString(string.Empty) });
