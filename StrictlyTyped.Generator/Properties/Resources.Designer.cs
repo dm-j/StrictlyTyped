@@ -147,12 +147,37 @@ namespace StrictlyTyped.Generator.Properties {
         ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDateOnly{T}&quot;/&gt; interface
         ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
         ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[global::Sys [rest of string was truncated]&quot;;.
+        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value.Year}/{Value.Mont [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string StrictDateOnlyTemplate {
             get {
                 return ResourceManager.GetString("StrictDateOnlyTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to using System.Diagnostics.Contracts;
+        ///using System.Numerics;
+        /// 
+        ///namespace StrictlyTyped.Common
+        ///{
+        ///    public interface IStrictTimeZone
+        ///    {
+        ///        public static abstract TimeZoneInfo TimeZone { get; }
+        ///    }
+        /// 
+        ///    public class UtcTimeZone : IStrictTimeZone
+        ///    {
+        ///        public static TimeZoneInfo TimeZone { get; } = TimeZoneInfo.Utc;
+        ///    }
+        /// 
+        ///    public interface IStrictDateTime&lt;TSelf&gt; : IStrictType&lt;TSelf, DateTime&gt; where TSelf : struct, IStrictDateTime&lt;TSelf&gt; { }
+        /// 
+        ///    public interface IStrictDateTime&lt;TSelf, T [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string StrictDateTimeTemplate {
+            get {
+                return ResourceManager.GetString("StrictDateTimeTemplate", resourceCulture);
             }
         }
         

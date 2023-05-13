@@ -10,6 +10,9 @@
     public class StrictDateOnlyAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Struct)]
+    public class StrictDateTimeAttribute : Attribute { }
+
+    [AttributeUsage(AttributeTargets.Struct)]
     public class StrictDecimalAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Struct)]

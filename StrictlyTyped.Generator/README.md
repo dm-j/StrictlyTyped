@@ -158,6 +158,32 @@ Note that validation can always be performed on any instance by calling `.Valida
 Yes, that's quite a few ways of getting values. I almost always use implicit cast or a `TryAs` extension, but testing with 
 other developers has resulted in the varied ways to create values here. 
 
+# Wait, what's going on with `StrictDateTime<TSelf, TTimeZone>`?
+That one is a little different. Strict `DateTime`s include the time zone as a generic argument. You declare them exactly the 
+same as you would any other Strict Type, like so:
+``` csharp
+[StrictDateTime] public partial record struct Arrival;
+```
+You can then create variables of that type, with the generic argument of the `IStrictTimeZone` time zone.
+``` csharp
+Arrival<UtcTimeZone> arrival = // etc.
+```
+This means that date times in different time zones are _different types_. They also have a method, `.InTimeZone<TNewTimeZone>()` 
+which converts between time zones by generic argument. 
+
+`StrictTypes.Common` defines one time zone, `UtcTimeZone`. If you want others, you can implement them like this:
+``` csharp
+public class CentralUSTimeZone : IStrictTimeZone
+{
+    public static TimeZoneInfo TimeZone { get; } = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+}
+
+public class EasternUSTimeZone : IStrictTimeZone
+{
+    public static TimeZoneInfo TimeZone { get; } = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+}
+```
+
 # What about JSON support?
 These types serialize and deserialize exactly like the types they wrap. There are currently two leading
 libraries that handle JSON support for C#.
@@ -184,6 +210,8 @@ one of the simple Microsoft WebAPI tutorial projects.
 
 * `StrictBool`
 * `StrictByte`
+* `StrictDateOnly`
+* `StrictDateTime`
 * `StrictDecimal`
 * `StrictDouble`
 * `StrictFloat`
@@ -201,8 +229,6 @@ one of the simple Microsoft WebAPI tutorial projects.
 
 The following are on my to-do list:
 
-* `StrictDateTime`
-* `StrictDateOnly`
 * `StrictTimeOnly`
 * `Strict<T>`
 

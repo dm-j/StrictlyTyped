@@ -80,6 +80,7 @@ public class StrictTypeGenerator : IIncrementalGenerator
 
     private static readonly Lazy<string[]> _boolTemplate = new(() => Resources.StrictBoolTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _byteTemplate = new(() => Resources.StrictByteTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
+    private static readonly Lazy<string[]> _dateTimeTemplate = new(() => Resources.StrictDateTimeTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _decimalTemplate = new(() => Resources.StrictDecimalTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _doubleTemplate = new(() => Resources.StrictDoubleTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
     private static readonly Lazy<string[]> _floatTemplate = new(() => Resources.StrictFloatTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
@@ -116,6 +117,7 @@ public class StrictTypeGenerator : IIncrementalGenerator
             {
                 "Byte" => _byteTemplate.Value,
                 "DateOnly" => _dateOnlyTemplate.Value,
+                "DateTime" => _dateTimeTemplate.Value,
                 "Decimal" => _decimalTemplate.Value,
                 "Double" => _doubleTemplate.Value,
                 "Float" => _floatTemplate.Value,

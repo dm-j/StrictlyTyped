@@ -21,12 +21,6 @@ namespace StrictlyTyped.Swagger
             {
                 var map = _map(options, type.type);
 
-                if (type.@interface.Any(i => i.StartsWith("DateOnly")))
-                {
-                    map(new OpenApiSchema { Type = "string", Default = new OpenApiDate(DateTime.MinValue) });
-                    continue;
-                }
-
                 if (type.@interface.Any(i => i.StartsWith("String")))
                 {
                     map(new OpenApiSchema { Type = "string", Default = new OpenApiString(string.Empty) });
@@ -66,6 +60,18 @@ namespace StrictlyTyped.Swagger
                 if (type.@interface.Any(i => i.StartsWith("Decimal")))
                 {
                     map(new OpenApiSchema { Type = "number", Default = new OpenApiFloat(0) });
+                    continue;
+                }
+
+                if (type.@interface.Any(i => i.StartsWith("DateOnly")))
+                {
+                    map(new OpenApiSchema { Type = "string", Default = new OpenApiDate(DateTime.MinValue) });
+                    continue;
+                }
+
+                if (type.@interface.Any(i => i.StartsWith("DateTime")))
+                {
+                    map(new OpenApiSchema { Type = "string", Default = new OpenApiDate(DateTime.MinValue) });
                     continue;
                 }
 
