@@ -11,8 +11,6 @@ namespace SourceGeneratorTests
 {
     public partial class DateTimeTests
     {
-        [StrictDateTime] public partial record struct Test1;
-
         public class CentralUSTimeZone : IStrictTimeZone
         {
             public static TimeZoneInfo TimeZone { get; } = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");

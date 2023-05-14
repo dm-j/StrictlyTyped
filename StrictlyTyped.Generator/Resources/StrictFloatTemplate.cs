@@ -433,6 +433,9 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictFloat<Z
     public TStrictResult Map<TResult, TStrictResult>(global::System.Func<global::System.Single, TResult> map) where TStrictResult : struct, global::StrictlyTyped.IStrictType<TStrictResult, TResult> =>
         TStrictResult.From(map(Value));
 
+    /// <summary>
+    /// TypeConverter which converts to and from objects of type ZYX
+    /// </summary>
     private class Converter : global::System.ComponentModel.TypeConverter
     {
         private static readonly global::System.ComponentModel.TypeConverter _baseConverter;
@@ -442,48 +445,25 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictFloat<Z
             _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.Single));
         }
 
-        private readonly global::System.Type[] _knownTypes = new[]
-        {
-            typeof(ZYX),
-            typeof(global::System.String),
-            typeof(global::System.Single),
-        };
-
         public override global::System.Boolean CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type sourceType) =>
-            _knownTypes.Contains(sourceType) ||
-            (_baseConverter.CanConvertFrom(sourceType) && _baseConverter.CanConvertTo(typeof(global::System.Single)));
+            _baseConverter.CanConvertFrom(context, sourceType) || sourceType == typeof(ZYX);
 
         public override global::System.Boolean CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type? destinationType) =>
-            destinationType == typeof(ZYX);
+            _baseConverter.CanConvertTo(context, destinationType) || destinationType == typeof(ZYX);
 
-        public override global::System.Object? ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object value)
-        {
-            return value switch
-            {
-                null => null,
-                ZYX v => v,
-                global::System.Single v => new ZYX(v),
-                global::System.String v => Parse(v),
-                var v when _baseConverter.CanConvertFrom(v.GetType()) && _baseConverter.CanConvertTo(typeof(global::System.Single)) =>
-                new ZYX((global::System.Single)_baseConverter.ConvertTo(context, culture, v, typeof(global::System.Single))!),
-                _ => throw new global::System.InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to {nameof(ZYX)}>"),
-            };
-        }
+        public override global::System.Object? ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object value) =>
+            new ZYX((global::System.Single?)_baseConverter.ConvertFrom(context, culture, value));
 
         public override global::System.Object? ConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object? value, global::System.Type destinationType)
         {
-            if (destinationType == typeof(global::System.String))
-            {
-                if (value is ZYX Strict)
-                    return Strict.Value.ToString();
-
-                return _baseConverter.ConvertToString(value);
-            }
-
-            if (destinationType != typeof(ZYX))
-                throw new InvalidCastException($"Cannot convert to Type {destinationType.FullName ?? "<null>"}");
-
-            return ConvertFrom(context, culture, value!);
+            var sourceType = value.GetType();
+            if (value is null)
+                return null;
+            else if (sourceType == typeof(ZYX))
+                return (ZYX)value;
+            else if (_baseConverter.CanConvertFrom(sourceType) && _baseConverter.CanConvertTo(destinationType))
+                return ZYX.Create((global::System.Single)_baseConverter.ConvertTo(value, typeof(global::System.Single)));
+            throw new global::System.InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to {nameof(ZYX)}>");
         }
     }
 
@@ -492,14 +472,21 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictFloat<Z
     /// </summary>
     public class SystemJsonConverter : global::System.Text.Json.Serialization.JsonConverter<ZYX>
     {
+        private readonly global::System.Text.Json.Serialization.JsonConverter<global::System.Single> _valueConverter;
+
+        public SystemJsonConverter(global::System.Text.Json.JsonSerializerOptions options)
+        {
+            _valueConverter = (global::System.Text.Json.Serialization.JsonConverter<global::System.Single>)options.GetConverter(typeof(global::System.Single));
+        }
+
         public override ZYX Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
         {
-            return new(reader.GetSingle());
+            return ZYX.Create(_valueConverter.Read(ref reader, typeToConvert, options));
         }
 
         public override void Write(global::System.Text.Json.Utf8JsonWriter writer, ZYX value, global::System.Text.Json.JsonSerializerOptions options)
         {
-            writer.WriteRawValue(global::System.Text.Json.JsonSerializer.Serialize(value.Value));
+            _valueConverter.Write(writer, value.Value, options);
         }
     }
 
@@ -518,11 +505,12 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictFloat<Z
     /// </summary>
     public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<ZYX>
     {
-        public override ZYX ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, ZYX existingValue, bool hasExistingValue, Newtonsoft.Json.JsonSerializer serializer) =>
-            Parse(reader.Value!.ToString());
+        private readonly global::Newtonsoft.Json.JsonSerializer _baseSerializer = new();
+        public override ZYX ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, ZYX existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>
+            new (_baseSerializer.Deserialize<global::System.Single>(reader));
 
-        public override void WriteJson(Newtonsoft.Json.JsonWriter writer, ZYX value, Newtonsoft.Json.JsonSerializer serializer) =>
-            global::Newtonsoft.Json.Linq.JToken.FromObject(((ZYX)value).Value).WriteTo(writer);
+        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, ZYX<TTimeZone> value, global::Newtonsoft.Json.JsonSerializer serializer) =>
+            _baseSerializer.Serialize(writer, value.Value);
     }
 #endif
 }
