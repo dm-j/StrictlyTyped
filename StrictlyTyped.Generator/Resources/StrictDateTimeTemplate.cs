@@ -1,8 +1,8 @@
 [global::System.Diagnostics.DebuggerDisplay("{Value}")]
-[global::System.ComponentModel.TypeConverter(typeof(Converter<TTimeZone>))]
-[global::System.Text.Json.Serialization.JsonConverter(typeof(SystemJsonConverter<TTimeZone>))]
+[global::System.ComponentModel.TypeConverter(typeof(Converter))]
+[global::System.Text.Json.Serialization.JsonConverter(typeof(global::StrictlyTyped.Internal.StrictDateTimeSystemJsonConverterFactory))]
 #if (USE_NEWTONSOFT_JSON)
-[global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftJsonConverter<TTimeZone>))]
+[global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftZYXJsonConverter))]
 #endif
 public readonly partial record struct ZYX<TTimeZone> : global::StrictlyTyped.IStrictDateTime<ZYX<TTimeZone>, TTimeZone> where TTimeZone : global::StrictlyTyped.IStrictTimeZone
 {
@@ -52,7 +52,7 @@ public readonly partial record struct ZYX<TTimeZone> : global::StrictlyTyped.ISt
         global::System.DateOnly.FromDateTime(value.Value);
 
     public static implicit operator ZYX<TTimeZone>?(global::System.DateOnly? value) =>
-        value.HasValue ? new(value.Value.ToDateTime(global::System.TimeOnly.MinValue)) : null;
+        value.HasValue ? new(value.Value) : null;
 
     public static implicit operator DateOnly?(ZYX<TTimeZone>? value) =>
         value.HasValue ? global::System.DateOnly.FromDateTime(value.Value.Value) : null;
@@ -234,101 +234,139 @@ public readonly partial record struct ZYX<TTimeZone> : global::StrictlyTyped.ISt
     public TStrictResult Map<TResult, TStrictResult>(global::System.Func<global::System.DateTime, TResult> map) where TStrictResult : struct, global::StrictlyTyped.IStrictType<TStrictResult, TResult> =>
         TStrictResult.From(map(Value));
 
-    public class Converter : global::System.ComponentModel.TypeConverter
-    {
-        private static readonly global::System.ComponentModel.TypeConverter _baseConverter;
-
-        static Converter()
-        {
-            _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.DateOnly));
-        }
-
-        private readonly global::System.Type[] _knownTypes = new[]
-        {
-        typeof(ZYX<TTimeZone>),
-        typeof(global::System.String),
-        typeof(global::System.DateOnly),
-        typeof(global::System.DateTime),
-    };
-
-        public override global::System.Boolean CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type sourceType) =>
-            _knownTypes.Contains(sourceType) ||
-            (_baseConverter.CanConvertFrom(sourceType) && (_baseConverter.CanConvertTo(typeof(global::System.DateOnly)) || _baseConverter.CanConvertTo(typeof(global::System.DateTime))));
-
-        public override global::System.Boolean CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type? destinationType) =>
-            destinationType == typeof(ZYX<TTimeZone>);
-
-        public override global::System.Object? ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object value)
-        {
-            return value switch
-            {
-                null => null,
-                ZYX<TTimeZone> v => v,
-                global::System.DateOnly v => new ZYX<TTimeZone>(v),
-                global::System.DateTime v => new ZYX<TTimeZone>(v),
-                global::System.String v => ZYX<TTimeZone>.Parse(v),
-                var v when _baseConverter.CanConvertFrom(v.GetType()) && _baseConverter.CanConvertTo(typeof(global::System.DateOnly)) =>
-                    new ZYX<TTimeZone>((global::System.DateOnly)_baseConverter.ConvertTo(context, culture, v, typeof(global::System.DateOnly))!),
-                var v when _baseConverter.CanConvertFrom(v.GetType()) && _baseConverter.CanConvertTo(typeof(global::System.DateTime)) =>
-                    new ZYX<TTimeZone>(global::System.DateOnly.FromDateTime((global::System.DateTime)_baseConverter.ConvertTo(context, culture, v, typeof(global::System.DateTime))!)),
-                _ => throw new global::System.InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to {nameof(ZYX<TTimeZone>)}>"),
-            };
-        }
-
-        public override global::System.Object? ConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object? value, global::System.Type destinationType)
-        {
-            if (destinationType == typeof(global::System.String))
-            {
-                if (value is ZYX<TTimeZone> Strict)
-                    return Strict.Value.ToString();
-
-                return _baseConverter.ConvertToString(value);
-            }
-
-            if (destinationType != typeof(ZYX<TTimeZone>))
-                throw new InvalidCastException($"Cannot convert to Type {destinationType.FullName ?? "<null>"}");
-
-            return ConvertFrom(context, culture, value!);
-        }
-    }
-
-    /// <summary>
-    /// A JsonConverter for System.Text.Json which converts ZYX transparently to and from Json representations
-    /// </summary>
-    public class SystemJsonConverter : global::System.Text.Json.Serialization.JsonConverter<ZYX<TTimeZone>>
-    {
-        public override ZYX<TTimeZone> Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
-        {
-            return new(reader.GetDateTime());
-        }
-
-        public override void Write(global::System.Text.Json.Utf8JsonWriter writer, ZYX<TTimeZone> value, global::System.Text.Json.JsonSerializerOptions options)
-        {
-            writer.WriteRawValue(global::System.Text.Json.JsonSerializer.Serialize(value.Value));
-        }
-    }
-
-#if (USE_EF_CORE)
-    public class EFConverter<TTimeZone> : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<ZYX<TTimeZone>, global::System.DateTime>
-        where TTimeZone : IStrictTimeZone
-    {
-        public EFConverter(global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ConverterMappingHints mappingHints = default!)
-            : base(id => id.Value, value => ZYX<TTimeZone>.Creates(value), mappingHints)
-        { }
-    }
-#endif
-
 #if (USE_NEWTONSOFT_JSON)
     /// <summary>
-    /// A JsonConverter for Newtonsoft.Json which converts <see cref="ZYX{TTimeZone}" transparently to and from Json representations
+    /// A JsonConverter for Newtonsoft.Json which converts ZYX transparently to and from Json representations
     /// </summary>
-    public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<ZYX<TTimeZone>>
+    public sealed class NewtonsoftActualJsonConverter : global::Newtonsoft.Json.JsonConverter<ZYX<TTimeZone>>
     {
-        public override ZYX<TTimeZone> ReadJson(Newtonsoft.Json.JsonReader reader, Type objectType, ZYX<TTimeZone> existingValue, bool hasExistingValue, Newtonsoft.Json.JsonSerializer serializer) =>
-            Create(global::System.DateTime.Parse(reader.Value!.ToString()));
+        private readonly global::Newtonsoft.Json.JsonSerializer _baseSerializer = new();
 
-        public override void WriteJson(Newtonsoft.Json.JsonWriter writer, ZYX<TTimeZone> value, Newtonsoft.Json.JsonSerializer serializer) =>
-            global::Newtonsoft.Json.Linq.JToken.FromObject(((ZYX<TTimeZone>)value)).WriteTo(writer);
+        public override ZYX<TTimeZone> ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, ZYX<TTimeZone> existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>
+            new(_baseSerializer.Deserialize<global::System.DateTime>(reader));
+
+        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, ZYX<TTimeZone> value, global::Newtonsoft.Json.JsonSerializer serializer) =>
+            _baseSerializer.Serialize(writer, value.Value);
     }
 #endif
+}
+
+/// <summary>
+/// A JsonConverter for System.Text.Json which converts ZYX transparently to and from Json representations
+/// </summary>
+public sealed class SystemJsonConverter<TTimeZone> : global::System.Text.Json.Serialization.JsonConverter<ZYX<TTimeZone>> 
+    where TTimeZone : global::StrictlyTyped.IStrictTimeZone
+{
+    private readonly global::System.Text.Json.Serialization.JsonConverter<DateTime> _valueConverter;
+
+    public SystemJsonConverter(global::System.Text.Json.JsonSerializerOptions options)
+    {
+        // For performance, use the existing converter.
+        _valueConverter = (global::System.Text.Json.Serialization.JsonConverter<DateTime>)options
+            .GetConverter(typeof(DateTime));
+    }
+
+    public override ZYX<TTimeZone> Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        return _valueConverter.Read(ref reader, typeToConvert, options);
+    }
+
+    public override void Write(global::System.Text.Json.Utf8JsonWriter writer, ZYX<TTimeZone> value, global::System.Text.Json.JsonSerializerOptions options)
+    {
+        _valueConverter.Write(writer, value.Value, options);
+    }
+}
+
+#if (USE_EF_CORE)
+public sealed class EFConverter<TTimeZone> : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<ZYX<TTimeZone>, global::System.DateTime>
+    where TTimeZone : IStrictTimeZone
+{
+    public EFConverter(global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ConverterMappingHints mappingHints = default!)
+        : base(id => id.Value, value => ZYX<TTimeZone>.Creates(value), mappingHints)
+    { }
+}
+#endif
+
+#if USE_NEWTONSOFT_JSON
+internal sealed class NewtonsoftZYXJsonConverter : global::Newtonsoft.Json.JsonConverter
+{
+    private readonly global::Newtonsoft.Json.JsonSerializer _serializer = new();
+
+    public override global::System.Boolean CanConvert(global::System.Type objectType) =>
+        objectType.IsGenericParameter && objectType.IsAssignableTo(typeof(global::StrictlyTyped.IStrictType<DateTime>));
+
+    public override global::System.Object? ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, global::System.Object? existingValue, global::Newtonsoft.Json.JsonSerializer serializer)
+    {
+        return objectType.GetMethod("Create")!.Invoke(null, new global::System.Object[] { _serializer.Deserialize<global::System.DateTime>(reader) });
+    }
+
+    public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, global::System.Object? value, global::Newtonsoft.Json.JsonSerializer serializer)
+    {
+        if (value is null)
+            return;
+        serializer.Serialize(writer, ((global::StrictlyTyped.IStrictType<global::System.DateTime>)value).Value);
+    }
+}
+#endif
+
+/// <summary>
+/// TypeConverter which converts to and from objects of type ZYX
+/// </summary>
+internal class Converter : global::System.ComponentModel.TypeConverter
+{
+    private static readonly global::System.ComponentModel.TypeConverter _baseConverter;
+    private readonly global::System.Type _instanceType;
+    private readonly global::System.Func<object, object> _createFromDateTime;
+
+    static Converter()
+    {
+        _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.DateTime));
+    }
+
+    public Converter(Type type)
+    {
+        if (!type.IsGenericType)
+        {
+            throw new global::System.ArgumentException("Incompatible type", nameof(type));
+        }
+
+        var genericArguments = type.GetGenericArguments();
+
+        if (type.GetGenericTypeDefinition() == typeof(ZYX<>)
+            && genericArguments.Length == 1
+            && genericArguments[0].IsAssignableTo(typeof(global::StrictlyTyped.IStrictTimeZone)))
+        {
+            _instanceType = typeof(ZYX<>).MakeGenericType(genericArguments[0]);
+            _createFromDateTime =
+                value => Activator.CreateInstance(_instanceType, new object[] { value, typeof(DateTime) })!;
+            return;
+        }
+
+        throw new global::System.ArgumentException("Incompatible type", nameof(type));
+    }
+
+    public override global::System.Boolean CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type sourceType) =>
+        _baseConverter.CanConvertFrom(context, sourceType) || sourceType.IsAssignableTo(typeof(global::StrictlyTyped.IStrictType<global::System.DateTime>));
+
+    public override global::System.Boolean CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type? destinationType) =>
+        _baseConverter.CanConvertTo(context, destinationType) || (destinationType?.IsAssignableTo(typeof(global::StrictlyTyped.IStrictType<global::System.DateTime>)) ?? false);
+
+    public override global::System.Object? ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object value) =>
+        _createFromDateTime(_baseConverter.ConvertTo(context, culture, value, typeof(DateTime))!);
+
+    public override global::System.Object? ConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object? value, global::System.Type destinationType)
+    {
+        var sourceType = value?.GetType()!;
+
+        if (value is null)
+            return null;
+        else if (sourceType == _instanceType)
+            return value;
+        else if (_baseConverter.CanConvertFrom(sourceType) && destinationType == _instanceType)
+            return _createFromDateTime(_baseConverter.ConvertTo(context, culture, value, typeof(DateTime))!);
+        else if (_baseConverter.CanConvertFrom(sourceType) && _baseConverter.CanConvertFrom(destinationType))
+            return _baseConverter.ConvertTo(context, culture, value, destinationType);
+
+        throw new global::System.InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to ZYX");
+    }
 }

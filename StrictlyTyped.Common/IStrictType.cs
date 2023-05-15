@@ -13,6 +13,9 @@ namespace StrictlyTyped
     public interface IStrictType<TBase> : IStrictType
     {
         TBase Value { get; }
+
+        bool Validate(out IReadOnlyCollection<string> errors);
+        bool Validate();
     }
 
     /// <summary>
@@ -21,7 +24,7 @@ namespace StrictlyTyped
     /// <typeparam name="TSelf">This type</typeparam>
     /// <typeparam name="TBase">The type wrapped</typeparam>
     public interface IStrictType<TSelf, TBase> : IStrictType<TBase>
-        where TSelf : struct, IStrictType<TSelf, TBase>
+        where TSelf : IStrictType<TSelf, TBase>
     {
         /// <summary>
         /// Creates a strictly typed value from a literal. Preprocessing performed if implemented.

@@ -272,7 +272,7 @@ namespace SourceGeneratorTests
 
             var result = System.Text.Json.JsonSerializer.Serialize(expected);
 
-            Assert.Equal(System.Text.Json.JsonSerializer.Serialize(value.ToDateTime(TimeOnly.MinValue)), result, StringComparer.InvariantCultureIgnoreCase);
+            Assert.Equal(System.Text.Json.JsonSerializer.Serialize(value), result, StringComparer.InvariantCultureIgnoreCase);
         }
 
         [Fact]
@@ -282,7 +282,7 @@ namespace SourceGeneratorTests
 
             var result = System.Text.Json.JsonSerializer.Serialize(list);
 
-            Assert.Equal($"[{string.Join(",", list.Select(item => System.Text.Json.JsonSerializer.Serialize(item.ToDateTime(TimeOnly.MinValue))))}]", result, StringComparer.InvariantCultureIgnoreCase);
+            Assert.Equal($"[{string.Join(",", list.Select(item => System.Text.Json.JsonSerializer.Serialize(item)))}]", result, StringComparer.InvariantCultureIgnoreCase);
         }
 
         [Fact]
@@ -302,7 +302,7 @@ namespace SourceGeneratorTests
             Test1 expected = Test1.From(value);
 
 
-            var serializedDateOnly = System.Text.Json.JsonSerializer.Serialize(value.ToDateTime(TimeOnly.MinValue));
+            var serializedDateOnly = System.Text.Json.JsonSerializer.Serialize(value);
             var serializedExpected = System.Text.Json.JsonSerializer.Serialize(expected);
 
             var deserializedExpected = System.Text.Json.JsonSerializer.Deserialize<Test1>(serializedExpected);
@@ -319,7 +319,7 @@ namespace SourceGeneratorTests
 
             var result = JsonConvert.SerializeObject(expected);
 
-            Assert.Equal(JsonConvert.SerializeObject(value.ToDateTime(TimeOnly.MinValue)), result, StringComparer.InvariantCultureIgnoreCase);
+            Assert.Equal(JsonConvert.SerializeObject(value), result, StringComparer.InvariantCultureIgnoreCase);
         }
 
         [Fact]
@@ -329,7 +329,7 @@ namespace SourceGeneratorTests
 
             var result = JsonConvert.SerializeObject(list);
 
-            Assert.Equal($"[{(string.Join(",", list.Select(item => JsonConvert.SerializeObject(item.ToDateTime(TimeOnly.MinValue)))))}]", result, StringComparer.InvariantCultureIgnoreCase);
+            Assert.Equal($"[{(string.Join(",", list.Select(item => JsonConvert.SerializeObject(item))))}]", result, StringComparer.InvariantCultureIgnoreCase);
         }
 
         [Fact]
@@ -348,7 +348,7 @@ namespace SourceGeneratorTests
             DateOnly value = DateOnly.Parse("2023/01/13");
             Test1 expected = Test1.From(value);
 
-            var serializedDateOnly = JsonConvert.SerializeObject(value.ToDateTime(TimeOnly.MinValue));
+            var serializedDateOnly = JsonConvert.SerializeObject(value);
             var serializedExpected = JsonConvert.SerializeObject(expected);
 
             var deserializedExpected = JsonConvert.DeserializeObject<Test1>(serializedExpected);

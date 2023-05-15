@@ -13,7 +13,6 @@ namespace SourceGeneratorTests
         public Test1 As()
         {
             var value = Guid.NewGuid();
-            JsonSerializerSettings.Converters.First(converter => converter.))
             return value.As<Test1>();
         }
 

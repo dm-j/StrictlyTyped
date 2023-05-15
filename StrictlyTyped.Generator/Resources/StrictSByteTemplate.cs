@@ -17,6 +17,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictSByte<Z
     /// <summary>
     /// Gets the value of the ZYX struct.
     /// </summary>
+    [global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
     public required readonly global::System.SByte Value { get; init; }
 
     /// <summary>
@@ -125,7 +126,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictSByte<Z
     /// No validation or preprocessing is performed.
     /// </remarks>
     [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
-    public ZYX(global::System.SByte value)
+    public ZYX([global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute] global::System.SByte value)
     {
         Value = value;
     }
@@ -436,59 +437,12 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictSByte<Z
     /// <summary>
     /// TypeConverter which converts to and from objects of type ZYX
     /// </summary>
-    private class Converter : global::System.ComponentModel.TypeConverter
-    {
-        private static readonly global::System.ComponentModel.TypeConverter _baseConverter;
-
-        static Converter()
-        {
-            _baseConverter = global::System.ComponentModel.TypeDescriptor.GetConverter(typeof(global::System.SByte));
-        }
-
-        public override global::System.Boolean CanConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type sourceType) =>
-            _baseConverter.CanConvertFrom(context, sourceType) || sourceType == typeof(ZYX);
-
-        public override global::System.Boolean CanConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Type? destinationType) =>
-            _baseConverter.CanConvertTo(context, destinationType) || destinationType == typeof(ZYX);
-
-        public override global::System.Object? ConvertFrom(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object value) =>
-            new ZYX((global::System.SByte)_baseConverter.ConvertFrom(context, culture, value));
-
-        public override global::System.Object? ConvertTo(global::System.ComponentModel.ITypeDescriptorContext? context, global::System.Globalization.CultureInfo? culture, global::System.Object? value, global::System.Type destinationType)
-        {
-            var sourceType = value.GetType();
-            if (value is null)
-                return null;
-            else if (sourceType == typeof(ZYX))
-                return (ZYX)value;
-            else if (_baseConverter.CanConvertFrom(sourceType) && _baseConverter.CanConvertTo(destinationType))
-                return ZYX.Create((global::System.SByte)_baseConverter.ConvertTo(value, typeof(global::System.SByte)));
-            throw new global::System.InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to {nameof(ZYX)}>");
-        }
-    }
+    private class Converter : global::StrictlyTyped.StrictTypeConverter<ZYX, global::System.SByte> { }
 
     /// <summary>
     /// A JsonConverter for System.Text.Json which converts ZYX transparently to and from Json representations
     /// </summary>
-    public class SystemJsonConverter : global::System.Text.Json.Serialization.JsonConverter<ZYX>
-    {
-        private readonly global::System.Text.Json.JsonConverter<global::System.SByte> _valueConverter;
-
-        public SystemJsonConverter(global::System.Text.Json.Serialization.JsonSerializerOptions options)
-        {
-            _valueConverter = (global::System.Text.Json.Serialization.JsonConverter<global::System.SByte>)options.GetConverter(typeof(global::System.SByte));
-        }
-
-        public override ZYX Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)
-        {
-            return ZYX.Create(_valueConverter.Read(ref reader, typeToConvert, options));
-        }
-
-        public override void Write(global::System.Text.Json.Utf8JsonWriter writer, ZYX value, global::System.Text.Json.JsonSerializerOptions options)
-        {
-            _valueConverter.Write(writer, value.Value, options);
-        }
-    }
+    private sealed class SystemJsonConverter : global::StrictlyTyped.StrictSystemJsonConverter<ZYX, global::System.SByte> { }
 
 #if (USE_EF_CORE)
     public class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<ZYX, global::System.SByte>
@@ -509,7 +463,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictSByte<Z
         public override ZYX ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, ZYX existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>
             new (_baseSerializer.Deserialize<global::System.SByte>(reader));
 
-        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, ZYX<TTimeZone> value, global::Newtonsoft.Json.JsonSerializer serializer) =>
+        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, ZYX value, global::Newtonsoft.Json.JsonSerializer serializer) =>
             _baseSerializer.Serialize(writer, value.Value);
     }
 #endif
