@@ -12,7 +12,6 @@
         ISpanParsable<TSelf>
         where TSelf : struct, IStrictBool<TSelf>
     {
-
         bool IsTrue { get; }
         bool IsFalse { get; }
 

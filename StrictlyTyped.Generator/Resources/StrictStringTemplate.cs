@@ -23,38 +23,14 @@ public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStric
     private static readonly STRICT_TYPE _empty = new(global::System.String.Empty);
     public static STRICT_TYPE Empty => _empty;
 
-    /// <summary>
-    /// Converts a <see cref="STRICT_TYPE"/> value to an <see cref="global::System.String"/> value.
-    /// </summary>
-    /// <param name="value">The <see cref="STRICT_TYPE"/> value to convert.</param>
-    /// <returns>The <see cref="global::System.String"/> value that represents the converted <see cref="STRICT_TYPE"/> value.</returns>
-    /// <remarks>
-    /// No validation or preprocessing is performed.
-    /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
     public static implicit operator global::System.String(STRICT_TYPE value) =>
         value.Value;
 
-    /// <summary>
-    /// Converts an <see cref="global::System.String"/> value to a <see cref="STRICT_TYPE"/> value.
-    /// </summary>
-    /// <param name="value">The <see cref="global::System.String"/> value to convert.</param>
-    /// <returns>A new <see cref="STRICT_TYPE"/> value that represents the converted <see cref="global::System.String"/> value.</returns>
-    /// <remarks>
-    /// No validation or preprocessing is performed.
-    /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
     public static implicit operator STRICT_TYPE(global::System.String value) =>
         new(value);
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="STRICT_TYPE"/> struct with the specified value.
-    /// </summary>
-    /// <param name="value">Thevalue to use as the underlying value of the <see cref="STRICT_TYPE"/> struct.</param>
-    /// <exception cref="global::System.ArgumentNullException"><paramref name="value"/> is <see langword="null"/>.</exception>
-    /// <remarks>
-    /// No validation or preprocessing is performed.
-    /// </remarks>
     [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
     public STRICT_TYPE([global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute] global::System.String value)
     {

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using StrictlyTyped;
+using StrictlyTyped.Common;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SourceGeneratorTests
 {
@@ -236,6 +238,97 @@ namespace SourceGeneratorTests
 
             Assert.Equal(serializedGuid, serializedExpected, StringComparer.InvariantCultureIgnoreCase);
             Assert.Equal(expected, deserializedExpected);
+        }
+
+        [StrictDecimal] public partial record struct Dollars;
+
+        public readonly record struct Payment : IStrictWrappedStruct<Payment, Dollars, decimal>
+        {
+            public readonly Dollars WrappedValue { get; init; }
+            public decimal Value => WrappedValue.Value;
+
+            public Payment(decimal value)
+            {
+                WrappedValue = value;
+            }
+
+            public Payment(Dollars value)
+            {
+                WrappedValue = value;
+            }
+
+            public TResult Map<TResult>(Func<decimal, TResult> map)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TStrictResult Map<TResult, TStrictResult>(Func<decimal, TResult> map) where TStrictResult : struct, IStrictType<TStrictResult, TResult>
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Validate(out IReadOnlyCollection<string> errors)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Validate()
+            {
+                throw new NotImplementedException();
+            }
+
+            public static Payment Create(Dollars value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static Payment Create(decimal value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static Payment From(Dollars value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static Payment From(decimal value)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(Dollars value, out Payment? result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(decimal value, out Payment? result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(decimal value, [MaybeNull, NotNullWhen(true)] out Payment result, out IReadOnlySet<string> failures)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(decimal value, [MaybeNull, NotNullWhen(true)] out Payment result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public static implicit operator Payment(decimal value) =>
+                new(value);
+
+            public static implicit operator decimal(Payment value) =>
+                value.Value;
+
+            public static implicit operator Payment?(decimal? value) =>
+                value.HasValue ? new(value.Value) : null;
+
+            public static implicit operator decimal?(Payment? value) =>
+                value.HasValue ? value.Value.Value : null;
         }
     }
 }
