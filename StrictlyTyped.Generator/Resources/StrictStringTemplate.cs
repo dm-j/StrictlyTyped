@@ -12,66 +12,66 @@
 #if (USE_NEWTONSOFT_JSON)
 [global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftJsonConverter))]
 #endif
-public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<ZYX>
+public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStrictString<STRICT_TYPE>
 {
     /// <summary>
-    /// Gets the value of the ZYX struct.
+    /// Gets the value of the STRICT_TYPE struct.
     /// </summary>
     [global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
     public required readonly global::System.String Value { get; init; }
 
-    private static readonly ZYX _empty = new(global::System.String.Empty);
-    public static ZYX Empty => _empty;
+    private static readonly STRICT_TYPE _empty = new(global::System.String.Empty);
+    public static STRICT_TYPE Empty => _empty;
 
     /// <summary>
-    /// Converts a <see cref="ZYX"/> value to an <see cref="global::System.String"/> value.
+    /// Converts a <see cref="STRICT_TYPE"/> value to an <see cref="global::System.String"/> value.
     /// </summary>
-    /// <param name="value">The <see cref="ZYX"/> value to convert.</param>
-    /// <returns>The <see cref="global::System.String"/> value that represents the converted <see cref="ZYX"/> value.</returns>
+    /// <param name="value">The <see cref="STRICT_TYPE"/> value to convert.</param>
+    /// <returns>The <see cref="global::System.String"/> value that represents the converted <see cref="STRICT_TYPE"/> value.</returns>
     /// <remarks>
     /// No validation or preprocessing is performed.
     /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
-    public static implicit operator global::System.String(ZYX value) =>
+    public static implicit operator global::System.String(STRICT_TYPE value) =>
         value.Value;
 
     /// <summary>
-    /// Converts an <see cref="global::System.String"/> value to a <see cref="ZYX"/> value.
+    /// Converts an <see cref="global::System.String"/> value to a <see cref="STRICT_TYPE"/> value.
     /// </summary>
     /// <param name="value">The <see cref="global::System.String"/> value to convert.</param>
-    /// <returns>A new <see cref="ZYX"/> value that represents the converted <see cref="global::System.String"/> value.</returns>
+    /// <returns>A new <see cref="STRICT_TYPE"/> value that represents the converted <see cref="global::System.String"/> value.</returns>
     /// <remarks>
     /// No validation or preprocessing is performed.
     /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
-    public static implicit operator ZYX(global::System.String value) =>
+    public static implicit operator STRICT_TYPE(global::System.String value) =>
         new(value);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ZYX"/> struct with the specified value.
+    /// Initializes a new instance of the <see cref="STRICT_TYPE"/> struct with the specified value.
     /// </summary>
-    /// <param name="value">Thevalue to use as the underlying value of the <see cref="ZYX"/> struct.</param>
+    /// <param name="value">Thevalue to use as the underlying value of the <see cref="STRICT_TYPE"/> struct.</param>
     /// <exception cref="global::System.ArgumentNullException"><paramref name="value"/> is <see langword="null"/>.</exception>
     /// <remarks>
     /// No validation or preprocessing is performed.
     /// </remarks>
     [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
-    public ZYX([global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute] global::System.String value)
+    public STRICT_TYPE([global::System.Diagnostics.CodeAnalysis.DisallowNullAttribute] global::System.String value)
     {
         global::System.ArgumentNullException.ThrowIfNull(value);
         Value = value;
     }
 
-    public static bool operator ==(ZYX left, global::System.String? right) =>
+    public static bool operator ==(STRICT_TYPE left, global::System.String? right) =>
         left.Value.ToString() == right;
 
-    public static bool operator !=(ZYX left, global::System.String? right) =>
+    public static bool operator !=(STRICT_TYPE left, global::System.String? right) =>
         !(left == right);
 
-    public static bool operator ==(global::System.String? left, ZYX right) =>
+    public static bool operator ==(global::System.String? left, STRICT_TYPE right) =>
         right == left;
 
-    public static bool operator !=(global::System.String? left, ZYX right) =>
+    public static bool operator !=(global::System.String? left, STRICT_TYPE right) =>
         !(right == left);
 
     public override global::System.Int32 GetHashCode() =>
@@ -80,13 +80,13 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     public global::System.Int32 Length => Value.Length;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ZYX"/> struct with the specified value.
+    /// Initializes a new instance of the <see cref="STRICT_TYPE"/> struct with the specified value.
     /// </summary>
-    /// <param name="value">Thevalue to use as the underlying value of the <see cref="ZYX"/> struct.</param>
+    /// <param name="value">Thevalue to use as the underlying value of the <see cref="STRICT_TYPE"/> struct.</param>
     /// <remarks>
     /// No validation or preprocessing is performed.
     /// </remarks>
-    public static ZYX Create(global::System.String value) =>
+    public static STRICT_TYPE Create(global::System.String value) =>
         new(value);
 
     /// <summary>
@@ -105,7 +105,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
         var result = obj switch
         {
             null => 1,
-            ZYX v => CompareTo(v),
+            STRICT_TYPE v => CompareTo(v),
             _ => 1,
         };
         _overrideCompareTo(obj, ref result);
@@ -113,11 +113,11 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     }
 
     /// <summary>
-    /// Determines whether this instance and another specified <see cref="ZYX"/> object have the same value.
+    /// Determines whether this instance and another specified <see cref="STRICT_TYPE"/> object have the same value.
     /// </summary>
-    /// <param name="other">The <see cref="ZYX"/> object to compare to this instance.</param>
+    /// <param name="other">The <see cref="STRICT_TYPE"/> object to compare to this instance.</param>
     /// <returns><see langword="true"/> if the value of the <paramref name="other"/> parameter is the same as the value of this instance; otherwise, <see langword="false"/>.</returns>
-    public bool Equals(ZYX? other, StringComparison comparison)
+    public bool Equals(STRICT_TYPE? other, StringComparison comparison)
     {
         bool result = Value.Equals(other?.Value, comparison);
         _overrideEquals(other, ref result);
@@ -125,13 +125,13 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     }
 
     /// <summary>
-    /// Determines whether this instance and another specified <see cref="ZYX"/> object have the same value.
+    /// Determines whether this instance and another specified <see cref="STRICT_TYPE"/> object have the same value.
     /// </summary>
-    /// <param name="other">The <see cref="ZYX"/> object to compare to this instance.</param>
+    /// <param name="other">The <see cref="STRICT_TYPE"/> object to compare to this instance.</param>
     /// <returns><see langword="true"/> if the value of the <paramref name="other"/> parameter is the same as the value of this instance; otherwise, <see langword="false"/>.</returns>
     /// 
     /// <remarks>This method can be overridden by implementing partial method <see cref="_overrideEquals"/></remarks>
-    public bool Equals(ZYX? other)
+    public bool Equals(STRICT_TYPE? other)
     {
         bool result = Value.Equals(other?.Value);
         _overrideEquals(other, ref result);
@@ -150,7 +150,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     ///  This method can be overridden by implementing <see cref="_overrideCompareTo"/>
     ///  </remarks>
     [global::System.Diagnostics.Contracts.Pure]
-    public global::System.Int32 CompareTo(ZYX other)
+    public global::System.Int32 CompareTo(STRICT_TYPE other)
     {
         var result = Value.CompareTo(other.Value);
         _overrideCompareTo(other, ref result);
@@ -158,9 +158,9 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     }
 
     /// <summary>
-    /// Returns the string representation of this <see cref="ZYX"/> instance, using the default format specifier.
+    /// Returns the string representation of this <see cref="STRICT_TYPE"/> instance, using the default format specifier.
     /// </summary>
-    /// <returns>A string representation of the value of this <see cref="ZYX"/> instance.</returns>
+    /// <returns>A string representation of the value of this <see cref="STRICT_TYPE"/> instance.</returns>
     /// <remarks>
     /// This can be overridden by implementing the partial method <see cref="_overrideToString"/>
     /// </remarks>
@@ -173,15 +173,15 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     }
 
     /// <summary>
-    /// Creates a new instance of the <see cref="ZYX"/> struct from a value.
+    /// Creates a new instance of the <see cref="STRICT_TYPE"/> struct from a value.
     /// </summary>
     /// <param name="value">The value to convert.</param>
-    /// <returns>A new instance of <see cref="ZYX"/> initialized to <paramref name="value"/></returns>
+    /// <returns>A new instance of <see cref="STRICT_TYPE"/> initialized to <paramref name="value"/></returns>
     /// <remarks>
     /// Preprocess <paramref name="value"/> before creating by implementing <see cref="_preprocess"/>
     /// </remarks>
     [global::System.Diagnostics.Contracts.Pure]
-    public static ZYX From(global::System.String value)
+    public static STRICT_TYPE From(global::System.String value)
     {
         var s = value;
         _preprocess(ref s);
@@ -200,7 +200,7 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     /// If implemented, the result of calling CompareTo on the wrapped value will be modified by this method
     /// </summary>
     /// <param name="result">The value which will be returned by CompareTo</param>
-    partial void _overrideEquals(ZYX? obj, ref global::System.Boolean result);
+    partial void _overrideEquals(STRICT_TYPE? obj, ref global::System.Boolean result);
 
     /// <summary>
     /// If implemented, the result of calling ToString on the wrapped value will be modified by this method
@@ -223,13 +223,13 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
     /// <param name="errors">A set of reasons why the value fails validation</param>
     partial void _validate(ref global::System.Collections.Generic.HashSet<global::System.String> errors);
 
-    public static global::System.Boolean TryFrom(global::System.String value, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out ZYX result, out global::System.Collections.Generic.IReadOnlySet<global::System.String> failures)
+    public static global::System.Boolean TryFrom(global::System.String value, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out STRICT_TYPE result, out global::System.Collections.Generic.IReadOnlySet<global::System.String> failures)
     {
         global::System.Collections.Generic.HashSet<global::System.String> validationFailures = new();
 
         if (value is null)
         {
-            validationFailures.Add($"Cannot create {typeof(ZYX).FullName} from <null>");
+            validationFailures.Add($"Cannot create {typeof(STRICT_TYPE).FullName} from <null>");
             failures = validationFailures;
             result = default;
             return false;
@@ -251,17 +251,22 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
         return true;
     }
 
-    public static global::System.Boolean TryFrom(global::System.String value, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out ZYX result) =>
+    public static global::System.Boolean TryFrom(global::System.String value, [global::System.Diagnostics.CodeAnalysis.MaybeNull, global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)] out STRICT_TYPE result) =>
         TryFrom(value, out result, out _);
 
-    [global::System.Diagnostics.Contracts.Pure]
-    public global::System.Collections.Generic.IReadOnlyList<global::System.String> Validate()
+    public global::System.Boolean Validate(out global::System.Collections.Generic.IReadOnlyCollection<global::System.String> errors)
     {
-        global::System.Collections.Generic.HashSet<global::System.String> errors = new();
-        _validate(ref errors);
+        global::System.Collections.Generic.HashSet<global::System.String> problems = new();
 
-        return global::System.Linq.Enumerable.ToList(errors).AsReadOnly();
+        _validate(ref problems);
+
+        errors = global::System.Linq.Enumerable.ToList(problems).AsReadOnly();
+
+        return !errors.Any();
     }
+
+    public global::System.Boolean Validate() =>
+        Validate(out _);
 
     public TResult Map<TResult>(global::System.Func<global::System.String, TResult> map) =>
         map(Value);
@@ -270,17 +275,17 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
         TStrictResult.From(map(Value));
 
     /// <summary>
-    /// TypeConverter which converts to and from objects of type ZYX
+    /// TypeConverter which converts to and from objects of type STRICT_TYPE
     /// </summary>
-    private class Converter : global::StrictlyTyped.StrictTypeConverter<ZYX, global::System.String> { }
+    private class Converter : global::StrictlyTyped.StrictTypeConverter<STRICT_TYPE, global::System.String> { }
 
     /// <summary>
-    /// A JsonConverter for System.Text.Json which converts ZYX transparently to and from Json representations
+    /// A JsonConverter for System.Text.Json which converts STRICT_TYPE transparently to and from Json representations
     /// </summary>
-    private sealed class SystemJsonConverter : global::StrictlyTyped.StrictSystemJsonConverter<ZYX, global::System.String> { }
+    private sealed class SystemJsonConverter : global::StrictlyTyped.StrictSystemJsonConverter<STRICT_TYPE, global::System.String> { }
 
 #if (USE_EF_CORE)
-    public class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<ZYX, global::System.String>
+    public class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<STRICT_TYPE, global::System.String>
     {
         public EFConverter(global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ConverterMappingHints mappingHints = default!)
             : base(id => id.Value, value => Create(value), mappingHints)
@@ -290,15 +295,15 @@ public readonly partial record struct ZYX : global::StrictlyTyped.IStrictString<
 
 #if (USE_NEWTONSOFT_JSON)
     /// <summary>
-    /// A JsonConverter for Newtonsoft.Json which converts ZYX transparently to and from Json representations
+    /// A JsonConverter for Newtonsoft.Json which converts STRICT_TYPE transparently to and from Json representations
     /// </summary>
-    public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<ZYX>
+    public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<STRICT_TYPE>
     {
         private readonly global::Newtonsoft.Json.JsonSerializer _baseSerializer = new();
-        public override ZYX ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, ZYX existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>
-            new (_baseSerializer.Deserialize<global::System.String>(reader));
+        public override STRICT_TYPE ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, STRICT_TYPE existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>
+            new (_baseSerializer.Deserialize<global::System.String>(reader)!);
 
-        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, ZYX value, global::Newtonsoft.Json.JsonSerializer serializer) =>
+        public override void WriteJson(global::Newtonsoft.Json.JsonWriter writer, STRICT_TYPE value, global::Newtonsoft.Json.JsonSerializer serializer) =>
             _baseSerializer.Serialize(writer, value.Value);
     }
 #endif

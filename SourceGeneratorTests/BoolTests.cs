@@ -4,7 +4,10 @@ namespace SourceGeneratorTests
 {
     public partial class BoolTests
     {
-        [StrictBool] public partial record struct Test1;
+        [StrictBool] public partial record struct Test1
+        {
+
+        }
         [StrictBool] public partial record struct Test2;
 
         [Fact]

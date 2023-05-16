@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);USE_NEWTONSOFT_JSON;USE_EF_CORE</DefineConstants>
+    <DefineConstants>$(DefineConstants);USE_NEWTONSOFT_JSON;</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

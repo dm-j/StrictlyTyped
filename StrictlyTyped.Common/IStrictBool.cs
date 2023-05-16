@@ -8,7 +8,8 @@
         IStrictType<TSelf, bool>,
         IComparable,
         IComparable<TSelf>,
-        IEquatable<TSelf>
+        IEquatable<TSelf>,
+        ISpanParsable<TSelf>
         where TSelf : struct, IStrictBool<TSelf>
     {
 

@@ -32,7 +32,7 @@ public class StrictTypeGenerator : IIncrementalGenerator
             static (spc, source) => _execute(source.Item1, source.Item2, spc));
     }
 
-    private (RecordDeclarationSyntax? record, string type) _getSemanticTargetForGeneration(GeneratorSyntaxContext context)
+    private static (RecordDeclarationSyntax? record, string type) _getSemanticTargetForGeneration(GeneratorSyntaxContext context)
     {
         var recordDeclarationSyntax = (RecordDeclarationSyntax)context.Node;
 
@@ -78,64 +78,54 @@ public class StrictTypeGenerator : IIncrementalGenerator
         }
     }
 
-    private static readonly Lazy<string[]> _boolTemplate = new(() => Resources.StrictBoolTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _byteTemplate = new(() => Resources.StrictByteTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _dateTimeTemplate = new(() => Resources.StrictDateTimeTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _decimalTemplate = new(() => Resources.StrictDecimalTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _doubleTemplate = new(() => Resources.StrictDoubleTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _floatTemplate = new(() => Resources.StrictFloatTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _guidTemplate = new(() => Resources.StrictGuidTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _halfTemplate = new(() => Resources.StrictHalfTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _intTemplate = new(() => Resources.StrictIntTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _longTemplate = new(() => Resources.StrictLongTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _sbyteTemplate = new(() => Resources.StrictSByteTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _shortTemplate = new(() => Resources.StrictShortTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _stringTemplate = new(() => Resources.StrictStringTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _uIntTemplate = new(() => Resources.StrictUIntTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _uLongTemplate = new(() => Resources.StrictULongTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _uShortTemplate = new(() => Resources.StrictUShortTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
-    private static readonly Lazy<string[]> _dateOnlyTemplate = new(() => Resources.StrictDateOnlyTemplate.Split(new[] { "ZYX" }, StringSplitOptions.None));
+    private static readonly Lazy<string> _boolTemplate = new(() => Resources.StrictBoolTemplate);
+    private static readonly Lazy<string> _signedNumberTemplate = new(() => Resources.SignedNumberTemplate);
+    private static readonly Lazy<string> _unsignedNumberTemplate = new(() => Resources.UnsignedNumberTemplate);
+    private static readonly Lazy<string> _dateTimeTemplate = new(() => Resources.StrictDateTimeTemplate);
+    private static readonly Lazy<string> _guidTemplate = new(() => Resources.StrictGuidTemplate);
+    private static readonly Lazy<string> _stringTemplate = new(() => Resources.StrictStringTemplate);
+    private static readonly Lazy<string> _dateOnlyTemplate = new(() => Resources.StrictDateOnlyTemplate);
 
     private static IEnumerable<(string fileName, string content)> _generateRecords(Compilation compilation, IEnumerable<(RecordDeclarationSyntax record, string type)> distinctRecords, CancellationToken cancellationToken)
     {
         var recordDeclarationSyntax = distinctRecords.ToArray();
-        for (int i = 0; i < recordDeclarationSyntax.Count(); i++)
+        for (int i = 0; i < recordDeclarationSyntax.Length; i++)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             SemanticModel semanticModel = compilation.GetSemanticModel(recordDeclarationSyntax[i].record.SyntaxTree);
-            if (semanticModel.GetDeclaredSymbol(recordDeclarationSyntax[i].record) is not INamedTypeSymbol recordSymbol)
+            if (semanticModel.GetDeclaredSymbol(recordDeclarationSyntax[i].record, cancellationToken) is not INamedTypeSymbol recordSymbol)
             {
                 continue;
             }
             string recordName = recordSymbol.ToString();
             string name = recordSymbol.Name;
-            string nameSpace = SyntaxNodeHelper.GetNamespace(recordDeclarationSyntax[i].record);
-            var parents = SyntaxNodeHelper.GetParentClasses(recordDeclarationSyntax[i].record);
+            string nameSpace = SyntaxNodeHelper.GetNamespace(recordDeclarationSyntax[i].record, cancellationToken);
+            var parents = SyntaxNodeHelper.GetParentClasses(recordDeclarationSyntax[i].record, cancellationToken);
 
-            string[] template = recordDeclarationSyntax[i].type switch
+            (string template, string typeName, string informalName, string? formalName) = recordDeclarationSyntax[i].type switch
             {
-                "Byte" => _byteTemplate.Value,
-                "DateOnly" => _dateOnlyTemplate.Value,
-                "DateTime" => _dateTimeTemplate.Value,
-                "Decimal" => _decimalTemplate.Value,
-                "Double" => _doubleTemplate.Value,
-                "Float" => _floatTemplate.Value,
-                "Guid" => _guidTemplate.Value,
-                "Half" => _halfTemplate.Value,
-                "Int" => _intTemplate.Value,
-                "Long" => _longTemplate.Value,
-                "SByte" => _sbyteTemplate.Value,
-                "Short" => _shortTemplate.Value,
-                "String" => _stringTemplate.Value,
-                "UInt" => _uIntTemplate.Value,
-                "ULong" => _uLongTemplate.Value,
-                "UShort" => _uShortTemplate.Value,
-                "Bool" => _boolTemplate.Value,
+                "Byte" => (_unsignedNumberTemplate.Value, name, "Byte", null),
+                "DateOnly" => (_dateOnlyTemplate.Value, name, "DateOnly", null),
+                "DateTime" => (_dateTimeTemplate.Value, name, "DateTime", null),
+                "Decimal" => (_signedNumberTemplate.Value, name, "Decimal", null),
+                "Double" => (_signedNumberTemplate.Value, name, "Double", null),
+                "Float" => (_signedNumberTemplate.Value, name, "Float", "Single"),
+                "Guid" => (_guidTemplate.Value, name, "Guid", null),
+                "Half" => (_signedNumberTemplate.Value, name, "Half", null),
+                "Int" => (_signedNumberTemplate.Value, name, "Int", "Int32"),
+                "Long" => (_signedNumberTemplate.Value, name, "Long", "Int64"),
+                "SByte" => (_signedNumberTemplate.Value, name, "SByte", "SByte"),
+                "Short" => (_signedNumberTemplate.Value, name, "Short", "Int16"),
+                "String" => (_stringTemplate.Value, name, "String", null),
+                "UInt" => (_unsignedNumberTemplate.Value, name, "UInt", "UInt32"),
+                "ULong" => (_unsignedNumberTemplate.Value, name, "ULong", "UInt64"),
+                "UShort" => (_unsignedNumberTemplate.Value, name, "UShort", "UInt16"),
+                "Bool" => (_boolTemplate.Value, name, "Bool", "Boolean"),
                 _ => throw new Exception($"Unknown strict type: {recordDeclarationSyntax[i].type}"),
             };
 
-            IEnumerable<StringBuilder> s = string.Join(name, template).SplitLines().Select(o => new StringBuilder(o));
+            IEnumerable<StringBuilder> s = _generateStrictTypeFromTemplate(template, typeName, informalName, formalName).SplitLines().Select(o => new StringBuilder(o));
             foreach ((_, string parentDeclaration) in parents)
             {
                 s = SyntaxNodeHelper.IndentAndWrap(s, parentDeclaration, "}");
@@ -144,14 +134,22 @@ public class StrictTypeGenerator : IIncrementalGenerator
             s = SyntaxNodeHelper.Wrap(s, $"namespace {nameSpace};{Environment.NewLine}", string.Empty);
             s = SyntaxNodeHelper.Wrap(s, Resources.AutoGeneratedHeader, Resources.AutoGeneratedFooter);
             var content = s.Aggregate(new StringBuilder(), (acc, next) => acc.AppendLine(next.ToString())).ToString();
-
+            cancellationToken.ThrowIfCancellationRequested();
             yield return (fileName: $"{recordDeclarationSyntax[i].type}-{nameSpace.Replace(".", "_")}_{string.Join("-", parents.Select(p => p.name).Aggregate(new Stack<string>(), (acc, next) => { acc.Push(next); return acc; }).Concat(new[] { name })).Replace(".", "_")}", content);
         }
     }
 
+    private static string _generateStrictTypeFromTemplate(string template, string typeName, string informalTypeName, string? formalTypeName = null)
+    {
+        return template
+            .Replace("STRICT_TYPE", typeName)
+            .Replace("BASE_TYPE_INFORMAL_NAME", informalTypeName)
+            .Replace("BASE_TYPE_FORMAL_NAME", formalTypeName ?? informalTypeName);
+    }
+
     static class SyntaxNodeHelper
     {
-        public static string GetNamespace(BaseTypeDeclarationSyntax syntax)
+        public static string GetNamespace(BaseTypeDeclarationSyntax syntax, CancellationToken cancellationToken)
         {
             StringBuilder nameSpace = default!;
 
@@ -159,7 +157,8 @@ public class StrictTypeGenerator : IIncrementalGenerator
 
             while (potentialNamespaceParent != null &&
                     potentialNamespaceParent is not NamespaceDeclarationSyntax
-                    && potentialNamespaceParent is not FileScopedNamespaceDeclarationSyntax)
+                    && potentialNamespaceParent is not FileScopedNamespaceDeclarationSyntax
+                    && !cancellationToken.IsCancellationRequested)
             {
                 potentialNamespaceParent = potentialNamespaceParent.Parent;
             }
@@ -168,28 +167,29 @@ public class StrictTypeGenerator : IIncrementalGenerator
             {
                 nameSpace = new StringBuilder(namespaceParent.Name.ToString());
 
-                while (namespaceParent.Parent is NamespaceDeclarationSyntax parent)
+                while (namespaceParent.Parent is NamespaceDeclarationSyntax parent && !cancellationToken.IsCancellationRequested)
                 {
                     nameSpace.Insert(0, ".");
                     nameSpace = nameSpace.Insert(0, namespaceParent.Name);
                     namespaceParent = parent;
                 }
             }
+            cancellationToken.ThrowIfCancellationRequested();
 
             return nameSpace.ToString();
         }
 
-        public static IEnumerable<(string name, string declaration)> GetParentClasses(BaseTypeDeclarationSyntax typeSyntax)
+        public static IEnumerable<(string name, string declaration)> GetParentClasses(BaseTypeDeclarationSyntax typeSyntax, CancellationToken cancellationToken)
         {
             TypeDeclarationSyntax? parentSyntax = typeSyntax.Parent as TypeDeclarationSyntax;
 
-            while (parentSyntax != null && _isAllowedKind(parentSyntax.Kind()))
+            while (parentSyntax != null && _isAllowedKind(parentSyntax.Kind()) && !cancellationToken.IsCancellationRequested)
             {
                 yield return (name: parentSyntax.Identifier.ToString(), declaration: $"{parentSyntax.Modifiers} {parentSyntax.Keyword} {parentSyntax.Identifier}{Environment.NewLine}{{");
 
                 parentSyntax = (parentSyntax.Parent as TypeDeclarationSyntax);
             }
-
+            cancellationToken.ThrowIfCancellationRequested();
         }
 
         // We can only be nested in class/struct/record
@@ -206,6 +206,6 @@ public class StrictTypeGenerator : IIncrementalGenerator
 
         public static StringBuilder Indent(StringBuilder s) =>
             s.Length == 0 || s[0] == '#' ? s
-            : s.Insert(0, "  ");
+            : s.Insert(0, "    ");
     }
 }

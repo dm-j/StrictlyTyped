@@ -137,11 +137,11 @@
     <value>XXX</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="SignedNumberTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SignedNumberTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="StrictBoolTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrictBoolTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictByteTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictByteTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="StrictDateOnlyTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrictDateOnlyTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -149,46 +149,16 @@
   <data name="StrictDateTimeTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrictDateTimeTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="StrictDecimalTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictDecimalTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictDoubleTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictDoubleTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictFloatTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictFloatTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="StrictGuidTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrictGuidTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="StrictHalfTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictHalfTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictIntTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictIntTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictLongTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictLongTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictSByteTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictSByteTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictShortTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictShortTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="StrictStringTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StrictStringTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="StrictUIntTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictUIntTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictULongTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictULongTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="StrictUShortTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\StrictUShortTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="StrongGuidAttribute" xml:space="preserve">
     <value>StronglyTyped.StrongGuidAttribute</value>
+  </data>
+  <data name="UnsignedNumberTemplate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UnsignedNumberTemplate.cs;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

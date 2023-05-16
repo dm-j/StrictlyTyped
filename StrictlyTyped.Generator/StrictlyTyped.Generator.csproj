@@ -24,30 +24,20 @@
         <IncludeSymbols>True</IncludeSymbols>
         <VersionPrefix>$([System.DateTime]::Now.ToString("1.yy.1MMdd"))$([System.DateTime]::Now.ToString(".1HHmm"))</VersionPrefix>
         <VersionSuffix>beta</VersionSuffix>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <NeutralLanguage>en-US</NeutralLanguage>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <DefineConstants>$(DefineConstants);USE_SYSTEM_TEXT_JSON;USE_NEWTONSOFT_JSON</DefineConstants>
-    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
     <ItemGroup>
+      <Compile Remove="Resources\SignedNumberTemplate.cs" />
       <Compile Remove="Resources\StrictBoolTemplate.cs" />
-      <Compile Remove="Resources\StrictByteTemplate.cs" />
       <Compile Remove="Resources\StrictDateOnlyTemplate.cs" />
       <Compile Remove="Resources\StrictDateTimeTemplate.cs" />
-      <Compile Remove="Resources\StrictDecimalTemplate.cs" />
-      <Compile Remove="Resources\StrictDoubleTemplate.cs" />
-      <Compile Remove="Resources\StrictFloatTemplate.cs" />
       <Compile Remove="Resources\StrictGuidTemplate.cs" />
-      <Compile Remove="Resources\StrictHalfTemplate.cs" />
-      <Compile Remove="Resources\StrictIntTemplate.cs" />
-      <Compile Remove="Resources\StrictLongTemplate.cs" />
-      <Compile Remove="Resources\StrictSByteTemplate.cs" />
-      <Compile Remove="Resources\StrictShortTemplate.cs" />
       <Compile Remove="Resources\StrictStringTemplate.cs" />
-      <Compile Remove="Resources\StrictUIntTemplate.cs" />
-      <Compile Remove="Resources\StrictULongTemplate.cs" />
-      <Compile Remove="Resources\StrictUShortTemplate.cs" />
+      <Compile Remove="Resources\UnsignedNumberTemplate.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -58,22 +48,12 @@
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         <None Include="Resources\StrictBoolTemplate.cs" />
-        <None Include="Resources\StrictByteTemplate.cs" />
         <None Include="Resources\StrictDateOnlyTemplate.cs" />
         <None Include="Resources\StrictDateTimeTemplate.cs" />
-        <None Include="Resources\StrictDecimalTemplate.cs" />
-        <None Include="Resources\StrictDoubleTemplate.cs" />
-        <None Include="Resources\StrictFloatTemplate.cs" />
         <None Include="Resources\StrictGuidTemplate.cs" />
-        <None Include="Resources\StrictHalfTemplate.cs" />
-        <None Include="Resources\StrictIntTemplate.cs" />
-        <None Include="Resources\StrictLongTemplate.cs" />
-        <None Include="Resources\StrictSByteTemplate.cs" />
-        <None Include="Resources\StrictShortTemplate.cs" />
+        <None Include="Resources\SignedNumberTemplate.cs" />
         <None Include="Resources\StrictStringTemplate.cs" />
-        <None Include="Resources\StrictUIntTemplate.cs" />
-        <None Include="Resources\StrictULongTemplate.cs" />
-        <None Include="Resources\StrictUShortTemplate.cs" />
+        <None Include="Resources\UnsignedNumberTemplate.cs" />
     </ItemGroup>
 
     <ItemGroup>

@@ -104,6 +104,25 @@ namespace StrictlyTyped.Generator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
+        ///[global::System.ComponentModel.TypeConverter(typeof(Converter))]
+        ///[global::System.Text.Json.Serialization.JsonConverter(typeof(SystemJsonConverter))]
+        ///#if (USE_NEWTONSOFT_JSON)
+        ///[global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftJsonConverter))]
+        ///#endif
+        ///public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStrictBASE_TYPE_INFORMAL_NAME&lt;STRICT_TYPE&gt;
+        ///{
+        ///#region Value
+        ///
+        ///    [global::System.Diagnostics.CodeAnalysis.DisallowNul [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SignedNumberTemplate {
+            get {
+                return ResourceManager.GetString("SignedNumberTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /// &lt;summary&gt;
         ////// Represents a strictly-typed record struct for a &lt;see cref=&quot;global::System.Boolean&quot;/&gt; value
         ////// &lt;/summary&gt;
@@ -117,24 +136,6 @@ namespace StrictlyTyped.Generator.Properties {
         internal static string StrictBoolTemplate {
             get {
                 return ResourceManager.GetString("StrictBoolTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed struct for a unsigned byte value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictByte{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[global::System.Co [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictByteTemplate {
-            get {
-                return ResourceManager.GetString("StrictByteTemplate", resourceCulture);
             }
         }
         
@@ -156,80 +157,17 @@ namespace StrictlyTyped.Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to using System.Diagnostics.Contracts;
-        ///using System.Numerics;
-        /// 
-        ///namespace StrictlyTyped.Common
-        ///{
-        ///    public interface IStrictTimeZone
-        ///    {
-        ///        public static abstract TimeZoneInfo TimeZone { get; }
-        ///    }
-        /// 
-        ///    public class UtcTimeZone : IStrictTimeZone
-        ///    {
-        ///        public static TimeZoneInfo TimeZone { get; } = TimeZoneInfo.Utc;
-        ///    }
-        /// 
-        ///    public interface IStrictDateTime&lt;TSelf&gt; : IStrictType&lt;TSelf, DateTime&gt; where TSelf : struct, IStrictDateTime&lt;TSelf&gt; { }
-        /// 
-        ///    public interface IStrictDateTime&lt;TSelf, T [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to [global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
+        ///[global::System.ComponentModel.TypeConverter(typeof(Converter))]
+        ///[global::System.Text.Json.Serialization.JsonConverter(typeof(global::StrictlyTyped.Internal.StrictDateTimeSystemJsonConverterFactory))]
+        ///#if (USE_NEWTONSOFT_JSON)
+        ///[global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftSTRICT_TYPEJsonConverter))]
+        ///#endif
+        ///public readonly partial record struct STRICT_TYPE&lt;TTimeZone&gt; : global::StrictlyTyped.IStrictDateTime&lt;STRICT_TYPE&lt;TTimeZone&gt;, TTimeZo [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string StrictDateTimeTemplate {
             get {
                 return ResourceManager.GetString("StrictDateTimeTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed struct for a decimal floating-point value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDecimal{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[globa [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictDecimalTemplate {
-            get {
-                return ResourceManager.GetString("StrictDecimalTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed struct for a signed double-precision floating-point value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictDouble{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Va [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictDoubleTemplate {
-            get {
-                return ResourceManager.GetString("StrictDoubleTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed struct for a signed single-precision floating point value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictFloat{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Val [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictFloatTemplate {
-            get {
-                return ResourceManager.GetString("StrictFloatTemplate", resourceCulture);
             }
         }
         
@@ -253,95 +191,6 @@ namespace StrictlyTyped.Generator.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed recordstruct for a signed half-precision floating-point value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictHalf{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictHalfTemplate {
-            get {
-                return ResourceManager.GetString("StrictHalfTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed recordstruct for a signed 32-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictInt{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[glob [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictIntTemplate {
-            get {
-                return ResourceManager.GetString("StrictIntTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a signed 64-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictLong{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[gl [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictLongTemplate {
-            get {
-                return ResourceManager.GetString("StrictLongTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a signed byte value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictSByte{T}&quot;/&gt; interface
-        ////// for strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[global::Sys [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictSByteTemplate {
-            get {
-                return ResourceManager.GetString("StrictSByteTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a signed 16-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictShort{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[g [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictShortTemplate {
-            get {
-                return ResourceManager.GetString("StrictShortTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
         ////// Represents a Strictly-typed record struct for a string value
         ////// &lt;/summary&gt;
         ////// &lt;remarks&gt;
@@ -359,64 +208,30 @@ namespace StrictlyTyped.Generator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a unsigned 32-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictUInt{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        ///[ [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictUIntTemplate {
-            get {
-                return ResourceManager.GetString("StrictUIntTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a unsigned 64-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictULong{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
-        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictULongTemplate {
-            get {
-                return ResourceManager.GetString("StrictULongTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to /// &lt;summary&gt;
-        ////// Represents a Strictly-typed record struct for a unsigned 16-bit integer value
-        ////// &lt;/summary&gt;
-        ////// &lt;remarks&gt;
-        ////// This struct is immutable and can be used for performance-sensitive scenarios that require
-        ////// type safety and minimal allocations. It implements the &lt;see cref=&quot;global::StrictlyTyped.IStrictUShort{T}&quot;/&gt; interface
-        ////// for Strict typing and can be used with the &lt;see cref=&quot;global::StrictlyTyped&quot;/&gt; library.
-        ////// &lt;/remarks&gt;
-        ///[global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]        /// [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string StrictUShortTemplate {
-            get {
-                return ResourceManager.GetString("StrictUShortTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to StronglyTyped.StrongGuidAttribute.
         /// </summary>
         internal static string StrongGuidAttribute {
             get {
                 return ResourceManager.GetString("StrongGuidAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [global::System.Diagnostics.DebuggerDisplay(&quot;{Value}&quot;)]
+        ///[global::System.ComponentModel.TypeConverter(typeof(Converter))]
+        ///[global::System.Text.Json.Serialization.JsonConverter(typeof(SystemJsonConverter))]
+        ///#if (USE_NEWTONSOFT_JSON)
+        ///[global::Newtonsoft.Json.JsonConverter(typeof(NewtonsoftJsonConverter))]
+        ///#endif
+        ///public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStrictBASE_TYPE_INFORMAL_NAME&lt;STRICT_TYPE&gt;
+        ///{
+        ///#region Value
+        ///
+        ///    [global::System.Diagnostics.CodeAnalysis.DisallowNul [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string UnsignedNumberTemplate {
+            get {
+                return ResourceManager.GetString("UnsignedNumberTemplate", resourceCulture);
             }
         }
     }

@@ -8,7 +8,8 @@
         IStrictType<TSelf, DateOnly>,
         IComparable,
         IComparable<TSelf>,
-        IEquatable<TSelf>
+        IEquatable<TSelf>,
+        ISpanParsable<TSelf>
         where TSelf : struct, IStrictDateOnly<TSelf>
     {
         static abstract TSelf Create(DateTime value);
