@@ -261,7 +261,7 @@ public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStric
     private sealed class SystemJsonConverter : global::StrictlyTyped.StrictSystemJsonConverter<STRICT_TYPE, global::System.String> { }
 
 #if (USE_EF_CORE)
-    public class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<STRICT_TYPE, global::System.String>
+    private class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<STRICT_TYPE, global::System.String>
     {
         public EFConverter(global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ConverterMappingHints mappingHints = default!)
             : base(id => id.Value, value => Create(value), mappingHints)
@@ -273,7 +273,7 @@ public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStric
     /// <summary>
     /// A JsonConverter for Newtonsoft.Json which converts STRICT_TYPE transparently to and from Json representations
     /// </summary>
-    public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<STRICT_TYPE>
+    private class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<STRICT_TYPE>
     {
         private readonly global::Newtonsoft.Json.JsonSerializer _baseSerializer = new();
         public override STRICT_TYPE ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, STRICT_TYPE existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>

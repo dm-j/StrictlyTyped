@@ -16,8 +16,5 @@ namespace StrictlyTyped
         static abstract bool operator !=(TSelf left, string right);
         static abstract bool operator ==(string left, TSelf right);
         static abstract bool operator !=(string left, TSelf right);
-
-        static abstract implicit operator TSelf(string value);
-        static abstract implicit operator string(TSelf value);
     }
 }

@@ -24,10 +24,5 @@ namespace StrictlyTyped
         static abstract bool operator !=(TSelf left, string right);
         static abstract bool operator ==(string left, TSelf right);
         static abstract bool operator !=(string left, TSelf right);
-
-        static abstract implicit operator TSelf(Guid value);
-        static abstract implicit operator Guid(TSelf value);
-        static abstract implicit operator TSelf?(Guid? value);
-        static abstract implicit operator Guid?(TSelf? value);
     }
 }

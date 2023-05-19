@@ -17,10 +17,5 @@
 
         static abstract TSelf True { get; }
         static abstract TSelf False { get; }
-
-        static abstract implicit operator TSelf?(bool? value);
-        static abstract implicit operator bool?(TSelf? value);
-        static abstract implicit operator TSelf(bool value);
-        static abstract implicit operator bool(TSelf value);
     }
 }

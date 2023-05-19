@@ -297,7 +297,7 @@ public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStric
     private sealed class SystemJsonConverter : global::StrictlyTyped.StrictSystemJsonConverter<STRICT_TYPE, global::System.BASE_TYPE_FORMAL_NAME> { }
 
 #if (USE_EF_CORE)
-    public class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<STRICT_TYPE, global::System.BASE_TYPE_FORMAL_NAME>
+    private class EFConverter : global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<STRICT_TYPE, global::System.BASE_TYPE_FORMAL_NAME>
     {
         public EFConverter(global::Microsoft.EntityFrameworkCore.Storage.ValueConversion.ConverterMappingHints mappingHints = default!)
             : base(id => id.Value, value => Create(value), mappingHints)
@@ -306,7 +306,7 @@ public readonly partial record struct STRICT_TYPE : global::StrictlyTyped.IStric
 #endif
 
 #if (USE_NEWTONSOFT_JSON)
-    public class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<STRICT_TYPE>
+    private class NewtonsoftJsonConverter : global::Newtonsoft.Json.JsonConverter<STRICT_TYPE>
     {
         private readonly global::Newtonsoft.Json.JsonSerializer _baseSerializer = new();
         public override STRICT_TYPE ReadJson(global::Newtonsoft.Json.JsonReader reader, global::System.Type objectType, STRICT_TYPE existingValue, global::System.Boolean hasExistingValue, global::Newtonsoft.Json.JsonSerializer serializer) =>

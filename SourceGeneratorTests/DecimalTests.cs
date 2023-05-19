@@ -242,7 +242,7 @@ namespace SourceGeneratorTests
 
         [StrictDecimal] public partial record struct Dollars;
 
-        public readonly record struct Payment : IStrictWrappedStruct<Payment, Dollars, decimal>
+        public readonly partial record struct Payment : IStrictWrappedStruct<Payment, Dollars, decimal>
         {
             public readonly Dollars WrappedValue { get; init; }
             public decimal Value => WrappedValue.Value;
@@ -257,25 +257,26 @@ namespace SourceGeneratorTests
                 WrappedValue = value;
             }
 
-            public TResult Map<TResult>(Func<decimal, TResult> map)
-            {
-                throw new NotImplementedException();
-            }
+            public TResult Map<TResult>(Func<decimal, TResult> map) =>
+                map(Value);
 
-            public TStrictResult Map<TResult, TStrictResult>(Func<decimal, TResult> map) where TStrictResult : struct, IStrictType<TStrictResult, TResult>
-            {
-                throw new NotImplementedException();
-            }
+            public TStrictResult Map<TResult, TStrictResult>(Func<decimal, TResult> map) where TStrictResult : struct, IStrictType<TStrictResult, TResult> =>
+                Create(map(Value));
+
+            partial void _validate(ref HashSet<string> errors);
 
             public bool Validate(out IReadOnlyCollection<string> errors)
             {
-                throw new NotImplementedException();
+                HashSet<string> failures = new HashSet<string>();
+                _validate(ref failures);
+
+                errors = failures.ToList().AsReadOnly();
+
+                return errors.Any();
             }
 
-            public bool Validate()
-            {
-                throw new NotImplementedException();
-            }
+            public bool Validate() =>
+                Validate(out _);
 
             public static Payment Create(Dollars value)
             {
@@ -317,6 +318,25 @@ namespace SourceGeneratorTests
                 throw new NotImplementedException();
             }
 
+            public static bool TryFrom(Dollars value, [MaybeNullWhen(false)] out Payment result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(Dollars value, [MaybeNullWhen(false)] out Payment result, out IReadOnlyCollection<string> errors)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(Dollars? value, [MaybeNull] out Payment? result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public static bool TryFrom(Dollars? value, [MaybeNull] out Payment? result, out IReadOnlyCollection<string> errors)
+            {
+                throw new NotImplementedException();
+            }
 
             public static implicit operator Payment(decimal value) =>
                 new(value);
