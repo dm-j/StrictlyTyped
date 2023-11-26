@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using Newtonsoft.Json;
 using StrictlyTyped;
 
@@ -175,7 +176,103 @@ namespace SourceGeneratorTests
 
              Assert.Equal(guid.ToString("N"), instance.ToString("N"));
          }
+        
+         [Fact]
+         public void Parse_ValidInput_CreatesInstance()
+         {
+             var guidString = Guid.NewGuid().ToString();
+             var instance = Test1.Parse(guidString);
 
+             Assert.Equal(guidString, instance.ToString());
+         }
+         
+         [Fact]
+         public void Parse_InvalidInput_ThrowsFormatException()
+         {
+             var invalidGuidString = "invalid_guid";
+
+             Assert.Throws<FormatException>(() => Test1.Parse(invalidGuidString));
+         }
+         
+         [Fact]
+         public void TryParse_ValidInput_ReturnsTrue()
+         {
+             var guidString = Guid.NewGuid().ToString();
+             bool result = Test1.TryParse(guidString, out var instance);
+
+             Assert.True(result);
+             Assert.Equal(guidString, instance.ToString());
+         }
+
+         [Fact]
+         public void TryParse_InvalidInput_ReturnsFalse()
+         {
+             var invalidGuidString = "invalid_guid";
+             bool result = Test1.TryParse(invalidGuidString, out var instance);
+
+             Assert.False(result);
+             Assert.Equal(default(Test1), instance);
+         }
+
+         [Fact]
+         public void From_CreatesInstanceFromGuid()
+         {
+             Guid guid = Guid.NewGuid();
+             Test1 instance = Test1.From(guid);
+
+             Assert.Equal(guid, instance.Value);
+         }
+         
+         [Fact]
+         public void Map_TransformsStrictTypeCorrectly()
+         {
+             Guid guid = Guid.NewGuid();
+             Test1 instance = Test1.From(guid);
+
+             string result = instance.Map(guidValue => guidValue.ToString());
+
+             Assert.Equal(guid.ToString(), result);
+         }
+         
+         [Fact]
+         public void TryFormat_FormatsCorrectly()
+         {
+             var guid = Guid.NewGuid();
+             var instance = new Test1(guid);
+             Span<char> destination = new char[36]; // Adjust the size based on expected format ('D' format for Guid is 36 characters)
+
+             ReadOnlySpan<char> format = "D".AsSpan(); // 'D' format for hyphenated Guid
+             bool result = instance.TryFormat(destination, out int charsWritten, format, null);
+
+             Assert.True(result);
+             Assert.Equal(guid.ToString("D").Length, charsWritten);
+             Assert.Equal(guid.ToString("D"), new string(destination));
+         }
+         
+         [Fact]
+         public void Parse_NullOrEmptyString_HandlesGracefully()
+         {
+             Assert.Throws<ArgumentNullException>(() => Test1.Parse(null!));
+             Assert.Throws<FormatException>(() => Test1.Parse(""));
+         }
+         
+         [Fact]
+         public void CustomTypeConverter_ConvertsCorrectly()
+         {
+             var guid = Guid.NewGuid();
+             var instance = new Test1(guid);
+             var converter = TypeDescriptor.GetConverter(typeof(Test1));
+
+             var convertedTo = converter.ConvertTo(instance, typeof(string));
+             var convertedBackObject = converter.ConvertFrom(convertedTo);
+             Assert.NotNull(convertedBackObject);
+
+             // Cast the object back to Test1
+             var convertedBack = (Test1)convertedBackObject;
+
+             Assert.Equal(guid, convertedBack.Value);
+         }
+         
          [Fact]
          public void SerializeList_SystemTextJson()
          {

@@ -28,14 +28,11 @@ namespace StrictlyTyped
             
             if (sourceType == destinationType)
                 return value;
-
-            if (!_baseConverter.CanConvertFrom(sourceType))
-                throw new InvalidCastException($"Cannot convert from {sourceType.Name}");
-
+            
             if (destinationType == typeof(TSelf))
                 // ReSharper disable once HeapView.BoxingAllocation
                 return TSelf.From((TBase)_baseConverter.ConvertTo(value, typeof(TBase))!);
-
+            
             if (_baseConverter.CanConvertTo(destinationType))
                 return _baseConverter.ConvertTo(value, destinationType);
 
