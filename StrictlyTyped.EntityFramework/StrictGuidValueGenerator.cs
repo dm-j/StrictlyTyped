@@ -8,6 +8,7 @@ namespace StrictlyTyped.EntityFramework
         public override bool GeneratesTemporaryValues => false;
 
         protected override object? NextValue(EntityEntry entry) =>
+            // ReSharper disable once HeapView.BoxingAllocation
             TStrict.New();
     }
 }

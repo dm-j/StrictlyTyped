@@ -7,7 +7,6 @@ namespace StrictlyTyped
         IComparable,
         IComparable<TSelf>,
         IEquatable<TSelf>,
-        IEqualityOperators<TSelf, TSelf, bool>,
         IComparisonOperators<TSelf, TSelf, bool>,
         ISpanFormattable,
         ISpanParsable<TSelf>

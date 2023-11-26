@@ -8,12 +8,7 @@ namespace StrictlyTyped
     /// </summary>
     public abstract class StrictTypeConverter<TSelf, TBase> : TypeConverter where TSelf : struct, IStrictType<TSelf, TBase>
     {
-        private static readonly TypeConverter _baseConverter;
-
-        static StrictTypeConverter()
-        {
-            _baseConverter = TypeDescriptor.GetConverter(typeof(TBase));
-        }
+        private readonly TypeConverter _baseConverter = TypeDescriptor.GetConverter(typeof(TBase));
 
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>
             _baseConverter.CanConvertFrom(context, sourceType) || sourceType == typeof(TSelf);
@@ -22,7 +17,8 @@ namespace StrictlyTyped
             destinationType == typeof(TSelf) || _baseConverter.CanConvertTo(context, destinationType);
 
         public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) =>
-            TSelf.Create(value is TBase v ? v :(TBase)_baseConverter.ConvertFrom(context, culture, value)!);
+            // ReSharper disable once HeapView.BoxingAllocation
+            TSelf.From(value is TBase v ? v :(TBase)_baseConverter.ConvertFrom(context, culture, value)!);
 
         public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
         {
@@ -34,15 +30,16 @@ namespace StrictlyTyped
                 return value;
 
             if (!_baseConverter.CanConvertFrom(sourceType))
-                throw new InvalidCastException($"Cannot convert from {sourceType.GetType().Name}");
+                throw new InvalidCastException($"Cannot convert from {sourceType.Name}");
 
             if (destinationType == typeof(TSelf))
-                return TSelf.Create((TBase)_baseConverter.ConvertTo(value, typeof(TBase))!);
+                // ReSharper disable once HeapView.BoxingAllocation
+                return TSelf.From((TBase)_baseConverter.ConvertTo(value, typeof(TBase))!);
 
             if (_baseConverter.CanConvertTo(destinationType))
                 return _baseConverter.ConvertTo(value, destinationType);
 
-            throw new InvalidCastException($"Cannot convert {value ?? "<null>"} ({value?.GetType().Name ?? "<null>"}) to {typeof(TSelf).Name}>");
+            throw new InvalidCastException($"Cannot convert {value ?? "<null>"} ({sourceType.Name ?? "<null>"}) to {typeof(TSelf).Name}>");
         }
     }
 }

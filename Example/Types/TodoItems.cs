@@ -7,16 +7,16 @@ namespace Example
         [StrictGuid]
         public partial record struct Id;
 
-        [StrictString]
-        public partial record struct Name;
-
-        [StrictBool]
-        public partial record struct IsComplete;
-
-        [StrictString]
-        public partial record struct Secret;
-
-        [StrictDateOnly]
-        public partial record struct Date;
+        // [StrictString]
+        // public partial record struct Name;
+        //
+        // [StrictBool]
+        // public partial record struct IsComplete;
+        //
+        // [StrictString]
+        // public partial record struct Secret;
+        //
+        // [StrictDateOnly]
+        // public partial record struct Date;
     }
 }

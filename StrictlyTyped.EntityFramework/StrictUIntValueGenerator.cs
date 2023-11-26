@@ -9,6 +9,7 @@ namespace StrictlyTyped.EntityFramework
         private uint _value = uint.MinValue;
 
         protected override object? NextValue(EntityEntry entry) =>
-            TStrict.Create(_value++);
+            // ReSharper disable once HeapView.BoxingAllocation
+            TStrict.From(_value++);
     }
 }

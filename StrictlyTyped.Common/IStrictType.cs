@@ -4,54 +4,56 @@
 namespace StrictlyTyped
 {
     public interface IStrictType { }
-
-    // ReSharper disable once TypeParameterCanBeVariant
-    /// <summary>
-    /// Base interface for a strictly-typed value that represents a TBase
-    /// </summary>
-    /// <typeparam name="TBase">The type wrapped</typeparam>
-    public interface IStrictType<TBase> : IStrictType
+    
+    public interface IStrictType<out TBase> : IStrictType
     {
+        /// <summary>
+        /// Gets the underlying value of the strict type.
+        /// </summary>
+        /// <remarks>
+        /// This property provides access to the underlying primitive value represented by the strict type instance.
+        /// It is a key feature of the strict type system, allowing the encapsulated value to be retrieved and used
+        /// in computations or other operations that require the base type.
+        /// </remarks>
+        /// <value>
+        /// The underlying value of type <typeparamref name="TBase"/> that this strict type instance represents.
+        /// </value>
+        /// <example>
+        /// <code>
+        /// EmployeeId employeeId = EmployeeId.New();
+        /// Guid underlyingValue = employeeId.Value;
+        /// // underlyingValue contains the Guid value represented by employeeId.
+        /// </code>
+        /// </example>
         TBase Value { get; }
-
-        bool Validate(out IReadOnlyCollection<string> errors);
-        bool Validate();
     }
-
-    /// <summary>
-    /// Interface for a strictly-typed value that represents a TBase
-    /// </summary>
-    /// <typeparam name="TSelf">This type</typeparam>
-    /// <typeparam name="TBase">The type wrapped</typeparam>
-    public interface IStrictType<TSelf, TBase> : IStrictType<TBase>
+    
+    public interface IStrictType<out TSelf, TBase> : IStrictType<TBase>
         where TSelf : IStrictType<TSelf, TBase>
     {
         /// <summary>
-        /// Creates a strictly typed value from a literal. Preprocessing performed if implemented.
-        /// Validation not performed
+        /// Creates an instance of <typeparamref name="TSelf"/> from the provided base type value.
         /// </summary>
-        /// <param name="value">The value to wrap in the strict type</param>
-        /// <returns>A strictly typed value</returns>
+        /// <remarks>
+        /// This method encapsulates the logic to convert from the base type <typeparamref name="TBase"/> 
+        /// to the strict type <typeparamref name="TSelf"/>. It is a fundamental method for creating 
+        /// strictly typed instances from their underlying primitive types.
+        /// For a more convenient way of creating 
+        /// strictly typed instances, consider using the extension method 
+        /// <see cref="StrictlyTyped.StrictTypeExtensions.As{TSelf}"/>.
+        /// </remarks>
+        /// <param name="value">
+        /// The value of type <typeparamref name="TBase"/> to be converted into a strict type.
+        /// </param>
+        /// <returns>
+        /// An instance of <typeparamref name="TSelf"/> representing the provided <paramref name="value"/>.
+        /// </returns>
+        /// <example>
+        /// <code>
+        /// Guid guidValue = Guid.NewGuid();
+        /// EmployeeId employeeId = EmployeeId.From(guidValue);
+        /// </code>
+        /// </example>
         static abstract TSelf From(TBase value);
-
-        /// <summary>
-        /// Creates a validated strictly typed value. Validation and preprocessing performed if implemented
-        /// </summary>
-        /// <param name="value">The value to validate and strictly type</param>
-        /// <param name="result">The out parameter that contains a SUCCESSFUL creation</param>
-        /// <param name="failures">An enumerable of strings listing reasons why it failed (default: empty)</param>
-        /// <returns>Whether or not the creation was successful</returns>
-        static abstract bool TryFrom(TBase value, [MaybeNull, NotNullWhen(true)] out TSelf result, out IReadOnlySet<string> failures);
-        static abstract bool TryFrom(TBase value, [MaybeNull, NotNullWhen(true)] out TSelf result);
-
-        /// <summary>
-        /// Creates a strictly typed value. No validation or preprocessing performed
-        /// </summary>
-        /// <param name="value">The value to strictly type</param>
-        /// <returns>The strictly typed value</returns>
-        static abstract TSelf Create(TBase value);
-
-        TResult Map<TResult>(Func<TBase, TResult> map);
-        TStrictResult Map<TResult, TStrictResult>(Func<TBase, TResult> map) where TStrictResult : struct, IStrictType<TStrictResult, TResult>;
     }
 }

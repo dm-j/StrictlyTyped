@@ -5,11 +5,30 @@ namespace StrictlyTyped
     public static partial class StrictTypeExtensions
     {
         /// <summary>
-        /// Creates a strictly typed value from a Guid
+        /// Converts the specified <see cref="Guid"/> value to its equivalent strict type <typeparamref name="TStrict"/>.
         /// </summary>
-        /// <typeparam name="TStrict">Destination type</typeparam>
-        /// <param name="value">The value to attempt to convert</param>
-        /// <returns>The converted value</returns>
+        /// <remarks>
+        /// This extension method provides a convenient way to convert a <see cref="Guid"/> to a strictly typed instance. 
+        /// It internally calls <see cref="IStrictGuid{TStrict}.From(Guid)"/>, encapsulating the conversion logic 
+        /// defined in the strict type.
+        /// </remarks>
+        /// <typeparam name="TStrict">
+        /// The type of the strict type to which the <see cref="Guid"/> is being converted. 
+        /// This type must implement <see cref="IStrictGuid{TStrict}"/>.
+        /// </typeparam>
+        /// <param name="value">
+        /// The <see cref="Guid"/> value to convert.
+        /// </param>
+        /// <returns>
+        /// A strictly typed instance of <typeparamref name="TStrict"/> representing the <paramref name="value"/>.
+        /// </returns>
+        /// <example>
+        /// <code>
+        /// Guid guidValue = Guid.NewGuid();
+        /// EmployeeId employeeId = guidValue.As&lt;EmployeeId&gt;();
+        /// </code>
+        /// </example>
+        /// <seealso cref="IStrictGuid{TStrict}.From"/>
         public static TStrict As<TStrict>(this Guid value)
             where TStrict : struct, IStrictGuid<TStrict> =>
             TStrict.From(value);
@@ -23,77 +42,5 @@ namespace StrictlyTyped
         public static TStrict? AsNullable<TStrict>(this Guid? value)
             where TStrict : struct, IStrictGuid<TStrict> =>
             value.HasValue ? TStrict.From(value.Value) : null;
-
-        /// <summary>
-        /// Creates a nullable strictly typed value from a Guid
-        /// </summary>
-        /// <typeparam name="TStrict">Destination type</typeparam>
-        /// <param name="value">The value to attempt to convert</param>
-        /// <param name="result">out result</param>
-        /// <returns>Whether or not the conversion succeeded</returns>
-        public static bool TryAs<TStrict>(this Guid value, [MaybeNull, NotNullWhen(true)] out TStrict result)
-            where TStrict : struct, IStrictGuid<TStrict> =>
-            TStrict.TryFrom(value, out result, out _);
-
-        /// <summary>
-        /// Creates a strictly typed value from a Guid
-        /// </summary>
-        /// <typeparam name="TStrict">Destination type</typeparam>
-        /// <param name="value">The value to convert</param>
-        /// <param name="result">out result</param>
-        /// <param name="failures">out reasons why conversion failed</param>
-        /// <returns>Whether or not the conversion succeeded</returns>
-        public static bool TryAs<TStrict>(this Guid? value, [MaybeNull, NotNullWhen(true)] out TStrict result, out IReadOnlySet<string> failures)
-            where TStrict : struct, IStrictGuid<TStrict>
-        {
-            if (value is null)
-            {
-                result = default!;
-                failures = new[] { $"Cannot create {typeof(TStrict).FullName} from <null>" }.ToHashSet();
-                return false;
-            }
-
-            var success = TStrict.TryFrom(value.Value, out var r, out failures);
-
-            result = success ? r : default;
-
-            return success;
-        }
-
-        /// <summary>
-        /// Creates a nullable strictly typed value from a nullable Guid
-        /// </summary>
-        /// <typeparam name="TStrict">Destination type</typeparam>
-        /// <param name="value">The value to convert</param>
-        /// <param name="result">out result</param>
-        /// <param name="failures">out reasons why the conversion failed</param>
-        /// <returns>Whether or not the conversion succeeded</returns>
-        public static bool TryAsNullable<TStrict>(this Guid? value, out TStrict? result, out IReadOnlySet<string> failures)
-            where TStrict : struct, IStrictGuid<TStrict>
-        {
-            if (value is null)
-            {
-                result = default;
-                failures = EmptyStringSet.Instance;
-                return true;
-            }
-
-            var success = TStrict.TryFrom(value.Value, out var r, out failures);
-
-            result = success ? r : default;
-
-            return success;
-        }
-
-        /// <summary>
-        /// Creates a nullable strictly typed value from a nullable Guid
-        /// </summary>
-        /// <typeparam name="TStrict">Destination type</typeparam>
-        /// <param name="value">The value to convert</param>
-        /// <param name="result">out result</param>
-        /// <returns>Whether or not the conversion succeeded</returns>
-        public static bool TryAsNullable<TStrict>(this Guid? value, out TStrict? result)
-            where TStrict : struct, IStrictGuid<TStrict> =>
-            value.TryAsNullable(out result, out _);
     }
 }

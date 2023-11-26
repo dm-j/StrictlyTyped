@@ -22,6 +22,9 @@
 	<VersionPrefix>$([System.DateTime]::Now.ToString("1.yy.1MMdd"))$([System.DateTime]::Now.ToString(".1HHmm"))</VersionPrefix>
 	<VersionSuffix>beta</VersionSuffix>
   </PropertyGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="StrictlyTyped.EntityFramework" />
+	</ItemGroup>
   <ItemGroup>
     <None Update="LICENSE.txt">
       <Pack>True</Pack>

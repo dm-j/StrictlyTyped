@@ -1,12 +1,13 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
+// ReSharper disable once CheckNamespace
 namespace StrictlyTyped
 {
     public abstract class StrictSystemJsonConverter<TStrict, TBase> : JsonConverter<TStrict> where TStrict : struct, IStrictType<TStrict, TBase>
     {
         public override TStrict Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
-            TStrict.Create((TBase)JsonSerializer.Deserialize(ref reader, typeof(TBase), options)!);
+            TStrict.From((TBase)JsonSerializer.Deserialize(ref reader, typeof(TBase), options)!);
 
         public override void Write(Utf8JsonWriter writer, TStrict value, JsonSerializerOptions options) => 
             JsonSerializer.Serialize(writer, value.Value, options);
